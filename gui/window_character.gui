@@ -1718,7 +1718,7 @@ window = {
 				name = "family_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
-				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('family'))]"
+                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('family'))]"
 
 				down = "[CharacterWindow.IsTabShown('family')]"
 
@@ -1749,7 +1749,7 @@ window = {
 				name = "relations_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
-				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('relations'))]"
+                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('relations'))]"
 
 				down = "[CharacterWindow.IsTabShown('relations')]"
 
@@ -1778,9 +1778,15 @@ window = {
 
 			button_tab = {
                 name = "my_list_tab_button"
-                onclick = "[GetPlayer.MakeScope.Var('my_list_tab_open').Set(1)]"
+                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(1), GetPlayer.MakeScope.Var('my_list_expanded').Set(0))]"
                 down = "[GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue, '(CFixedPoint)0')]"
-                hbox = { text_single = { text = "MY LIST" default_format = "#low" } }
+
+                hbox = {
+                    text_single = {
+                        text = "MY LIST"
+                        default_format = "#low"
+                    }
+                }
             }
 
 			button_tab = {
@@ -1788,7 +1794,7 @@ window = {
 				datacontext = "[CharacterWindow.GetCharacter]"
 				#	visible = "[Not(Character.IsPlayer)]"
 				layoutpolicy_horizontal = expanding
-				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('court'))]"
+                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('court'))]"
 
 				down = "[CharacterWindow.IsTabShown('court')]"
 
@@ -1821,7 +1827,7 @@ window = {
 				visible = "[And( Character.IsRuler, Not( IsLandlessAdventurer( Character ) ) )]"
 
 				layoutpolicy_horizontal = expanding
-				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('subjects'))]"
+                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('subjects'))]"
 
 				down = "[CharacterWindow.IsTabShown('subjects')]"
 
