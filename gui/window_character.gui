@@ -1718,8 +1718,8 @@ window = {
 				name = "family_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
+				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('family'))]"
 
-				onclick = "[CharacterWindow.SetTab('family')]"
 				down = "[CharacterWindow.IsTabShown('family')]"
 
 				using = tooltip_above
@@ -1749,8 +1749,8 @@ window = {
 				name = "relations_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
+				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('relations'))]"
 
-				onclick = "[CharacterWindow.SetTab('relations')]"
 				down = "[CharacterWindow.IsTabShown('relations')]"
 
 				using = tooltip_above
@@ -1788,8 +1788,8 @@ window = {
 				datacontext = "[CharacterWindow.GetCharacter]"
 				#	visible = "[Not(Character.IsPlayer)]"
 				layoutpolicy_horizontal = expanding
+				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('court'))]"
 
-				onclick = "[CharacterWindow.SetTab('court')]"
 				down = "[CharacterWindow.IsTabShown('court')]"
 
 				using = tooltip_above
@@ -1821,8 +1821,8 @@ window = {
 				visible = "[And( Character.IsRuler, Not( IsLandlessAdventurer( Character ) ) )]"
 
 				layoutpolicy_horizontal = expanding
+				onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), CharacterWindow.SetTab('subjects'))]"
 
-				onclick = "[CharacterWindow.SetTab('subjects')]"
 				down = "[CharacterWindow.IsTabShown('subjects')]"
 
 				using = tooltip_above
