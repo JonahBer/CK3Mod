@@ -1718,7 +1718,7 @@ window = {
 				name = "family_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
-                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('family'))]"
+                onclick = "[CharacterWindow.SetTab('family')]"
 
 				down = "[CharacterWindow.IsTabShown('family')]"
 
@@ -1749,7 +1749,7 @@ window = {
 				name = "relations_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
 				layoutpolicy_horizontal = expanding
-                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('relations'))]"
+                onclick = "[CharacterWindow.SetTab('relations')]"
 
 				down = "[CharacterWindow.IsTabShown('relations')]"
 
@@ -1778,15 +1778,9 @@ window = {
 
 			button_tab = {
                 name = "my_list_tab_button"
-                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(1), GetPlayer.MakeScope.Var('my_list_expanded').Set(0))]"
+                onclick = "[CharacterWindow.SetTab('court'); GetPlayer.MakeScope.Var('my_list_tab_open').Set(1); GetPlayer.MakeScope.Var('my_list_expanded').Set(0)]"
                 down = "[GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue, '(CFixedPoint)0')]"
-
-                hbox = {
-                    text_single = {
-                        text = "MY LIST"
-                        default_format = "#low"
-                    }
-                }
+                hbox = { text_single = { text = "MY LIST" default_format = "#low" } }
             }
 
 			button_tab = {
@@ -1794,7 +1788,7 @@ window = {
 				datacontext = "[CharacterWindow.GetCharacter]"
 				#	visible = "[Not(Character.IsPlayer)]"
 				layoutpolicy_horizontal = expanding
-                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('court'))]"
+                onclick = "[CharacterWindow.SetTab('court')]"
 
 				down = "[CharacterWindow.IsTabShown('court')]"
 
@@ -1827,7 +1821,7 @@ window = {
 				visible = "[And( Character.IsRuler, Not( IsLandlessAdventurer( Character ) ) )]"
 
 				layoutpolicy_horizontal = expanding
-                onclick = "[And(GetPlayer.MakeScope.Var('my_list_tab_open').Set(0), GetPlayer.MakeScope.Var('my_list_expanded').Set(0), CharacterWindow.SetTab('subjects'))]"
+                onclick = "[CharacterWindow.SetTab('subjects')]"
 
 				down = "[CharacterWindow.IsTabShown('subjects')]"
 
@@ -3114,7 +3108,7 @@ window = {
 
             widget = {
                 name = "my_list"
-                visible = "[And(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue, '(CFixedPoint)0'), Not(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('hide_ui_character_sheet_bottom').GetValue, '(CFixedPoint)0')))]"
+                visible = "[And(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue,'(CFixedPoint)0'), CharacterWindow.IsTabShown('court'))]"
                 size = { 100% 100% }
 
                 using = Animation_Tab_Switch
@@ -3124,6 +3118,10 @@ window = {
                 # =========================
                 vbox = {
                     name = "my_list_main_view"
+                    text_single = {
+                                        text = "MY LIST [GetPlayer.MakeScope.Var('my_list_tab_open').GetValue]"
+                                        default_format = "#low"
+                                    }
                     visible = "[Not(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_expanded').GetValue, '(CFixedPoint)0'))]"
 
                     # Header row: title + actions
@@ -3160,52 +3158,55 @@ window = {
                     }
 
                     # Compact row (7 slots like children/siblings)
-                    widget = {
-                        name = "my_list_compact_row"
-                        layoutpolicy_horizontal = expanding
-                        maximumsize = { -1 110 }
-                        scissor = yes
+                    vbox = {
                         margin_left = 10
                         margin_right = 10
                         margin_top = 10
 
-                        hbox = {
-                            spacing = 5
+                        widget = {
+                            name = "my_list_compact_row"
+                            layoutpolicy_horizontal = expanding
+                            maximumsize = { -1 110 }
+                            scissor = yes
 
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_0').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_0').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_1').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_1').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_2').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_2').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_3').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_3').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_4').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_4').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_5').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_5').GetValue)]"
-                                portrait_head_small = {}
-                            }
-                            container = {
-                                visible = "[GetPlayer.MakeScope.Var('my_list_A_6').IsSet]"
-                                datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_6').GetValue)]"
-                                portrait_head_small = {}
+                            hbox = {
+                                spacing = 5
+
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_0').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_0').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_1').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_1').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_2').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_2').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_3').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_3').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_4').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_4').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_5').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_5').GetValue)]"
+                                    portrait_head_small = {}
+                                }
+                                container = {
+                                    visible = "[GetPlayer.MakeScope.Var('my_list_A_6').IsSet]"
+                                    datacontext = "[Character.GetByID(GetPlayer.MakeScope.Var('my_list_A_6').GetValue)]"
+                                    portrait_head_small = {}
+                                }
                             }
                         }
                     }
@@ -3319,7 +3320,7 @@ window = {
 
 			vbox_character_list = {
 				datacontext = "[CharacterWindow.GetCourt]"
-				visible = "[CharacterWindow.IsTabShown('court')]"
+				visible = "[And(CharacterWindow.IsTabShown('court'), Not(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue,'(CFixedPoint)0')))]"
 
 				blockoverride "sort_dropdown" {
 					dropdown_sort_characterlist = {
