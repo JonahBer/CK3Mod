@@ -24,3 +24,46 @@ debug_ping_self = {
 
     auto_accept = yes
 }
+
+debug_add_to_list_a = {
+  category = debug
+  desc = "Add to List A"
+  picture = debug_interaction
+
+  is_shown = {
+    always = yes
+  }
+
+  is_valid = {
+    always = yes
+  }
+
+  effect = {
+    scope:actor = {
+      execute_scripted_effect = {
+        name = add_character_to_list
+        list_name = A
+        target_character = scope:recipient
+      }
+    }
+  }
+}
+
+debug_remove_from_list_a = {
+  category = debug
+  desc = "Remove from List A"
+  picture = debug_interaction
+
+  is_shown = { always = yes }
+  is_valid = { always = yes }
+
+  effect = {
+    scope:actor = {
+      execute_scripted_effect = {
+        name = remove_character_from_list
+        list_name = A
+        target_character = scope:recipient
+      }
+    }
+  }
+}

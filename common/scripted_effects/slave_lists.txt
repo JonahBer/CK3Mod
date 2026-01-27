@@ -1,0 +1,98 @@
+add_character_to_list = {
+  # expects: list_name, target_character
+  switch = {
+    trigger = scope:root
+
+    case = {
+      limit = { check_variable = { which = list_name value = A } }
+      add_to_variable_list = {
+        name = my_list_A_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = B } }
+      add_to_variable_list = {
+        name = my_list_B_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = C } }
+      add_to_variable_list = {
+        name = my_list_C_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = D } }
+      add_to_variable_list = {
+        name = my_list_D_chars
+        value = scope:target_character
+      }
+    }
+  }
+}
+
+remove_character_from_list = {
+  switch = {
+    trigger = scope:root
+
+    case = {
+      limit = { check_variable = { which = list_name value = A } }
+      remove_from_variable_list = {
+        name = my_list_A_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = B } }
+      remove_from_variable_list = {
+        name = my_list_B_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = C } }
+      remove_from_variable_list = {
+        name = my_list_C_chars
+        value = scope:target_character
+      }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = D } }
+      remove_from_variable_list = {
+        name = my_list_D_chars
+        value = scope:target_character
+      }
+    }
+  }
+}
+
+set_list_level = {
+  switch = {
+    trigger = scope:root
+
+    case = {
+      limit = { check_variable = { which = list_name value = A } }
+      set_variable = { name = my_list_A_level value = scope:value }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = B } }
+      set_variable = { name = my_list_B_level value = scope:value }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = C } }
+      set_variable = { name = my_list_C_level value = scope:value }
+    }
+    case = {
+      limit = { check_variable = { which = list_name value = D } }
+      set_variable = { name = my_list_D_level value = scope:value }
+    }
+  }
+}
+
+# onclick = "[GetPlayer.ExecuteScriptedEffect('add_character_to_list', {
+  # list_name = 'A'
+  # target_character = Character
+# })]"
