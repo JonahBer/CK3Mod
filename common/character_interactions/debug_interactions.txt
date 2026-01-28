@@ -1,69 +1,62 @@
 debug_ping_self = {
-    category = interaction_debug_main
-    use_diplomatic_range = no
-    ignores_pending_interaction_block = yes
-    common_interaction = yes
-    icon = debug_secret
-
-    is_shown = { debug_only = yes }
-
-    send_option = {
-        flag = ping
-        localization = debug_ping_self
-    }
-    send_options_exclusive = yes
-
-    on_accept = {
-        send_interface_toast = {
-
-            left_icon = scope:actor
-            right_icon = scope:recipient
-        }        scope:actor = { add_gold = 50 }
-        scope:actor = { add_prestige = 100 }
-    }
-
-    auto_accept = yes
+	category = interaction_debug_main
+	use_diplomatic_range = no
+	ignores_pending_interaction_block = yes
+	common_interaction = yes
+	icon = debug_secret
+	is_shown = { debug_only = yes
+	}
+	send_option = {
+		flag = ping
+		localization = debug_ping_self
+	}
+	send_options_exclusive = yes
+	on_accept = {
+		send_interface_toast = {
+			left_icon = scope:actor
+			right_icon = scope:recipient
+		}        scope:actor = { add_gold = 50
+		}
+		scope:actor = { add_prestige = 100
+		}
+	}
+	auto_accept = yes
 }
-
 debug_add_to_list_a = {
-  category = debug
-  desc = "Add to List A"
-  picture = debug_interaction
-
-  is_shown = {
-    always = yes
-  }
-
-  is_valid = {
-    always = yes
-  }
-
-  effect = {
-    scope:actor = {
-      execute_scripted_effect = {
-        name = add_character_to_list
-        list_name = A
-        target_character = scope:recipient
-      }
-    }
-  }
+	category = debug
+	desc = "Add to List A"
+	picture = debug_interaction
+	is_shown = {
+		always = yes
+	}
+	is_valid = {
+		always = yes
+	}
+	effect = {
+		scope:actor = {
+			execute_scripted_effect = {
+				name = add_character_to_list
+				list_name = A
+				target_character = scope:recipient
+			}
+		}
+	}
 }
-
 debug_remove_from_list_a = {
-  category = debug
-  desc = "Remove from List A"
-  picture = debug_interaction
-
-  is_shown = { always = yes }
-  is_valid = { always = yes }
-
-  effect = {
-    scope:actor = {
-      execute_scripted_effect = {
-        name = remove_character_from_list
-        list_name = A
-        target_character = scope:recipient
-      }
-    }
-  }
+	category = debug
+	desc = "Remove from List A"
+	picture = debug_interaction
+	is_shown = { always = yes
+	}
+	is_valid = { always = yes
+	}
+	effect = {
+		scope:actor = {
+			execute_scripted_effect = {
+				name = remove_character_from_list
+				list_name = A
+				target_character = scope:recipient
+			}
+		}
+	}
 }
