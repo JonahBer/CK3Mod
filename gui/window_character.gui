@@ -1613,8 +1613,6 @@ window = {
 					}
 				}
 			}
-			using = slave_button_tab
-
 			button_tab = {
 				name = "court_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
@@ -2756,15 +2754,11 @@ window = {
 				}
 			}
 			####################################
-			############ SLAVES TAB ############
-			####################################
-			using = slave_tab_widget
-			####################################
 			############ COURT TAB #############
 			####################################
 			vbox_character_list = {
 				datacontext = "[CharacterWindow.GetCourt]"
-				visible = "[And(CharacterWindow.IsTabShown('court'), Not(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue,'(CFixedPoint)0')))]"
+				visible = "[CharacterWindow.IsTabShown('court')]"
 				blockoverride "sort_dropdown" {
 					dropdown_sort_characterlist = {
 						# unique name needed to distinct from vassal sort options
