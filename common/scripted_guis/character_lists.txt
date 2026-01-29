@@ -1,0 +1,28 @@
+﻿add_character_to_list = {
+	scope = character
+	is_valid = {
+		always = yes
+	}
+	effect = {
+		scope:root = {
+			set_variable = {
+				name = temp_list_slot
+				value = 0
+			}
+		}
+	}
+}
+remove_character_from_list = {
+	scope = character
+	is_valid = {
+		always = yes
+	}
+	effect = {
+		scope:root = {
+			set_variable = {
+				name = temp_list_slot
+				value = 0
+			}
+		}
+	}
+}

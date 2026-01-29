@@ -1,0 +1,69 @@
+﻿types CharacterSlaves
+{
+	type slave_tab_widget = widget {
+		widget = {
+			name = "my_list"
+			visible = "[CharacterWindow.IsTabShown('my_list')]"
+			size = {
+				100% 100%
+			}
+			vbox = {
+				name = "my_list_main_view"
+				text_single = {
+					raw_text = "MY LIST"
+					default_format = "#low"
+				}
+				# Header row: title + actions
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					margin_top = 10
+					margin_left = 10
+					margin_right = 10
+					spacing = 10
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						raw_text = "MY LIST A"
+						default_format = "#high"
+					}
+					button = {
+						name = "my_list_add_current"
+						datacontext = "[GetScriptedGui( 'add_character_to_list' )]"
+						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
+						text_single = {
+							raw_text = "ADD CURRENT"
+							default_format = "#low"
+						}
+					}
+					button = {
+						name = "my_list_remove_current"
+						datacontext = "[GetScriptedGui( 'remove_character_from_list' )]"
+						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
+						text_single = {
+							raw_text = "REMOVE CURRENT"
+							default_format = "#low"
+						}
+					}
+				}
+				# List note
+				text_single = {
+					raw_text = "Characters stored in mod variables A_0 through A_29"
+					default_format = "#low"
+					margin_top = 10
+				}
+				expand = {
+				}
+			}
+		}
+	}
+	type slave_button_tab = button_tab {
+		name = "my_list_tab_button"
+		onclick = "[CharacterWindow.SetTab('my_list')]"
+		down = "[CharacterWindow.IsTabShown('my_list')]"
+		hbox = {
+			text_single = {
+				raw_text = "MY LIST"
+				default_format = "#low"
+			}
+		}
+	}
+}

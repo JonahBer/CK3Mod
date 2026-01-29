@@ -5,4 +5,4 @@ tags={
 	"Historical"
 }
 name="Slave Tiers"
-supported_version="1.18.2"
+supported_version="1.18.3"
