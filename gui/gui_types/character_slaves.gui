@@ -1,68 +1,97 @@
 ﻿types CharacterSlaves
 {
 	type slave_tab_widget = widget {
-		widget = {
-			name = "my_list"
-			visible = "[CharacterWindow.IsTabShown('my_list')]"
-			size = {
-				100% 100%
+		visible = "[CharacterWindow.IsTabShown('my_list')]"
+		size = { 100% 100%
+		}
+		using = Animation_Tab_Switch
+		vbox = {
+			name = "slaves_main_view"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+			spacing = 5
+			margin = { 10 10 10 10
 			}
-			vbox = {
-				name = "my_list_main_view"
+			# Header
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				raw_text = "ENSLAVED CHARACTERS"
+				default_format = "#high"
+			}
+			# Enslaved character count
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 5
+				margin_bottom = 5
 				text_single = {
-					raw_text = "MY LIST"
-					default_format = "#low"
-				}
-				# Header row: title + actions
-				hbox = {
 					layoutpolicy_horizontal = expanding
-					margin_top = 10
-					margin_left = 10
+					raw_text = "Total Enslaved"
+					default_format = "#medium"
+				}
+				text_single = {
+					raw_text = "0/30"
+					default_format = "#medium"
 					margin_right = 10
-					spacing = 10
+				}
+			}
+			# Character list placeholder
+			text_single = {
+				layoutpolicy_horizontal = expanding
+				raw_text = "Characters stored in mod variables A_0 through A_29"
+				default_format = "#low"
+				margin_bottom = 10
+			}
+			# Action buttons
+			hbox = {
+				layoutpolicy_horizontal = expanding
+				spacing = 10
+				button = {
+					name = "add_slave_button"
+					layoutpolicy_horizontal = expanding
+					datacontext = "[GetScriptedGui( 'add_character_to_list' )]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
 					text_single = {
 						layoutpolicy_horizontal = expanding
-						raw_text = "MY LIST A"
-						default_format = "#high"
+						align = center
+						raw_text = "+ ADD CURRENT"
+						default_format = "#low"
 					}
-					button = {
-						name = "my_list_add_current"
-						datacontext = "[GetScriptedGui( 'add_character_to_list' )]"
-						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
-						text_single = {
-							raw_text = "ADD CURRENT"
-							default_format = "#low"
-						}
+					tooltip = "Add the currently viewed character to the slave list"
+					using = tooltip_above
+				}
+				button = {
+					name = "remove_slave_button"
+					layoutpolicy_horizontal = expanding
+					datacontext = "[GetScriptedGui( 'remove_character_from_list' )]"
+					onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
+					text_single = {
+						layoutpolicy_horizontal = expanding
+						align = center
+						raw_text = "- REMOVE"
+						default_format = "#low"
 					}
-					button = {
-						name = "my_list_remove_current"
-						datacontext = "[GetScriptedGui( 'remove_character_from_list' )]"
-						onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
-						text_single = {
-							raw_text = "REMOVE CURRENT"
-							default_format = "#low"
-						}
-					}
+					tooltip = "Remove the currently viewed character from the slave list"
+					using = tooltip_above
 				}
-				# List note
-				text_single = {
-					raw_text = "Characters stored in mod variables A_0 through A_29"
-					default_format = "#low"
-					margin_top = 10
-				}
-				expand = {
-				}
+			}
+			expand = {
 			}
 		}
 	}
 	type slave_button_tab = button_tab {
 		name = "my_list_tab_button"
+		datacontext = "[CharacterWindow.GetCharacter]"
+		layoutpolicy_horizontal = expanding
 		onclick = "[CharacterWindow.SetTab('my_list')]"
-		down = "[CharacterWindow.IsTabShown('my_list')]"
+		down    = "[CharacterWindow.IsTabShown('my_list')]"
+		using = tooltip_above
 		hbox = {
 			text_single = {
-				raw_text = "MY LIST"
+				layoutpolicy_horizontal = expanding
+				align = center
+				raw_text = "Slaves"
 				default_format = "#low"
+				autoresize = no
 			}
 		}
 	}

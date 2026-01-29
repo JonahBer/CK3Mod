@@ -1683,13 +1683,18 @@ window = {
 			####################################
 			widget = {
 				name = "family"
-				visible = "[And(CharacterWindow.IsTabShown('family'), Not( GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('hide_ui_character_sheet_bottom').GetValue, '(CFixedPoint)0' ) ))]"
-				size = { 100% 100%
+				visible = "[And(CharacterWindow.IsTabShown('family'), Not(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('hide_ui_character_sheet_bottom').GetValue,'(CFixedPoint)0')))]"				size = { 100% 100%
 				}
 				using = Animation_Tab_Switch
 				vbox = {
 					name = "family_main_view"
-					visible = "[Not( Or(CharacterWindow.IsRelationExpanded( 'children' ), Or(CharacterWindow.IsRelationExpanded( 'siblings' ), CharacterWindow.IsRelationExpanded( 'concubines' ), ) ) )]"
+					visible = "[Not( Or(
+						CharacterWindow.IsRelationExpanded('children'),
+						Or(
+							CharacterWindow.IsRelationExpanded('siblings'),
+							CharacterWindow.IsRelationExpanded('concubines')
+						)
+					))]"
 					widget = {
 						name = "parents_grandparents_spouses"
 						layoutpolicy_horizontal = expanding
@@ -2755,7 +2760,7 @@ window = {
 					}
 				}
 			}
-			slave_tab_widget = {
+			slave_tab_widget = { name = "my_list"
 			}
 			####################################
 			############ COURT TAB #############
