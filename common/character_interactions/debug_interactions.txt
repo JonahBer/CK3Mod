@@ -1,4 +1,4 @@
-debug_ping_self = {
+﻿debug_ping_self = {
 	category = interaction_debug_main
 	use_diplomatic_range = no
 	ignores_pending_interaction_block = yes
@@ -6,16 +6,21 @@ debug_ping_self = {
 	icon = debug_secret
 	is_shown = { debug_only = yes
 	}
-	send_option = {
-		flag = ping
-		localization = debug_ping_self
-	}
 	send_options_exclusive = yes
+	send_option = {
+		flag = ping_option_1
+		localization = debug_ping_self_1
+	}
+	send_option = {
+		flag = ping_option_2
+		localization = debug_ping_self_2
+	}
 	on_accept = {
 		send_interface_toast = {
 			left_icon = scope:actor
 			right_icon = scope:recipient
-		}        scope:actor = { add_gold = 50
+		}
+		scope:actor = { add_gold = 50
 		}
 		scope:actor = { add_prestige = 100
 		}
@@ -24,8 +29,7 @@ debug_ping_self = {
 }
 debug_add_to_list_a = {
 	category = debug
-	desc = "Add to List A"
-	picture = debug_interaction
+	desc = "debug_add_to_list_a_desc"
 	is_shown = {
 		always = yes
 	}
@@ -44,8 +48,7 @@ debug_add_to_list_a = {
 }
 debug_remove_from_list_a = {
 	category = debug
-	desc = "Remove from List A"
-	picture = debug_interaction
+	desc = "debug_remove_from_list_a_desc"
 	is_shown = { always = yes
 	}
 	is_valid = { always = yes

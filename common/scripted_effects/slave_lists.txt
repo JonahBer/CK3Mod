@@ -1,390 +1,414 @@
 ﻿add_character_to_list = {
-	# expects: list_name, target_character
+	# Adds target_character to the appropriate list (my_list_A_0 through my_list_A_29)
+	# Duplicate check: do nothing if already in list
 	if = {
-		limit = { check_variable = { which = list_name value = A
+		limit = {
+			OR = {
+				var:my_list_A_0 = scope:target_character
+				var:my_list_A_1 = scope:target_character
+				var:my_list_A_2 = scope:target_character
+				var:my_list_A_3 = scope:target_character
+				var:my_list_A_4 = scope:target_character
+				var:my_list_A_5 = scope:target_character
+				var:my_list_A_6 = scope:target_character
+				var:my_list_A_7 = scope:target_character
+				var:my_list_A_8 = scope:target_character
+				var:my_list_A_9 = scope:target_character
+				var:my_list_A_10 = scope:target_character
+				var:my_list_A_11 = scope:target_character
+				var:my_list_A_12 = scope:target_character
+				var:my_list_A_13 = scope:target_character
+				var:my_list_A_14 = scope:target_character
+				var:my_list_A_15 = scope:target_character
+				var:my_list_A_16 = scope:target_character
+				var:my_list_A_17 = scope:target_character
+				var:my_list_A_18 = scope:target_character
+				var:my_list_A_19 = scope:target_character
+				var:my_list_A_20 = scope:target_character
+				var:my_list_A_21 = scope:target_character
+				var:my_list_A_22 = scope:target_character
+				var:my_list_A_23 = scope:target_character
+				var:my_list_A_24 = scope:target_character
+				var:my_list_A_25 = scope:target_character
+				var:my_list_A_26 = scope:target_character
+				var:my_list_A_27 = scope:target_character
+				var:my_list_A_28 = scope:target_character
+				var:my_list_A_29 = scope:target_character
 			}
 		}
-		# ----- DUPLICATE CHECK (if already in any slot, do nothing) -----
+		# Already in list, do nothing
+	}
+	else = {
+		# Fill first empty slot
 		if = {
-			limit = {
-				OR = {
-					check_variable = { which = my_list_A_0  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_1  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_2  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_3  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_4  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_5  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_6  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_7  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_8  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_9  value = scope:target_character
-					}
-					check_variable = { which = my_list_A_10 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_11 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_12 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_13 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_14 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_15 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_16 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_17 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_18 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_19 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_20 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_21 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_22 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_23 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_24 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_25 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_26 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_27 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_28 value = scope:target_character
-					}
-					check_variable = { which = my_list_A_29 value = scope:target_character
-					}
+			limit = { NOT = { has_variable = my_list_A_0
 				}
 			}
-			# do nothing if duplicate
+			set_variable = { name = my_list_A_0 value = scope:target_character
+			}
 		}
-		else = {
-			# ----- FILL FIRST EMPTY SLOT -----
-			if = { limit = { NOT = { has_variable = my_list_A_0
-					}
-				}  set_variable = { name = my_list_A_0  value = scope:target_character
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_1
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_1
-					}
-				}  set_variable = { name = my_list_A_1  value = scope:target_character
+			set_variable = { name = my_list_A_1 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_2
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_2
-					}
-				}  set_variable = { name = my_list_A_2  value = scope:target_character
+			set_variable = { name = my_list_A_2 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_3
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_3
-					}
-				}  set_variable = { name = my_list_A_3  value = scope:target_character
+			set_variable = { name = my_list_A_3 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_4
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_4
-					}
-				}  set_variable = { name = my_list_A_4  value = scope:target_character
+			set_variable = { name = my_list_A_4 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_5
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_5
-					}
-				}  set_variable = { name = my_list_A_5  value = scope:target_character
+			set_variable = { name = my_list_A_5 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_6
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_6
-					}
-				}  set_variable = { name = my_list_A_6  value = scope:target_character
+			set_variable = { name = my_list_A_6 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_7
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_7
-					}
-				}  set_variable = { name = my_list_A_7  value = scope:target_character
+			set_variable = { name = my_list_A_7 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_8
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_8
-					}
-				}  set_variable = { name = my_list_A_8  value = scope:target_character
+			set_variable = { name = my_list_A_8 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_9
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_9
-					}
-				}  set_variable = { name = my_list_A_9  value = scope:target_character
+			set_variable = { name = my_list_A_9 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_10
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_10
-					}
-				} set_variable = { name = my_list_A_10 value = scope:target_character
+			set_variable = { name = my_list_A_10 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_11
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_11
-					}
-				} set_variable = { name = my_list_A_11 value = scope:target_character
+			set_variable = { name = my_list_A_11 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_12
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_12
-					}
-				} set_variable = { name = my_list_A_12 value = scope:target_character
+			set_variable = { name = my_list_A_12 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_13
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_13
-					}
-				} set_variable = { name = my_list_A_13 value = scope:target_character
+			set_variable = { name = my_list_A_13 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_14
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_14
-					}
-				} set_variable = { name = my_list_A_14 value = scope:target_character
+			set_variable = { name = my_list_A_14 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_15
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_15
-					}
-				} set_variable = { name = my_list_A_15 value = scope:target_character
+			set_variable = { name = my_list_A_15 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_16
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_16
-					}
-				} set_variable = { name = my_list_A_16 value = scope:target_character
+			set_variable = { name = my_list_A_16 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_17
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_17
-					}
-				} set_variable = { name = my_list_A_17 value = scope:target_character
+			set_variable = { name = my_list_A_17 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_18
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_18
-					}
-				} set_variable = { name = my_list_A_18 value = scope:target_character
+			set_variable = { name = my_list_A_18 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_19
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_19
-					}
-				} set_variable = { name = my_list_A_19 value = scope:target_character
+			set_variable = { name = my_list_A_19 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_20
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_20
-					}
-				} set_variable = { name = my_list_A_20 value = scope:target_character
+			set_variable = { name = my_list_A_20 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_21
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_21
-					}
-				} set_variable = { name = my_list_A_21 value = scope:target_character
+			set_variable = { name = my_list_A_21 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_22
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_22
-					}
-				} set_variable = { name = my_list_A_22 value = scope:target_character
+			set_variable = { name = my_list_A_22 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_23
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_23
-					}
-				} set_variable = { name = my_list_A_23 value = scope:target_character
+			set_variable = { name = my_list_A_23 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_24
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_24
-					}
-				} set_variable = { name = my_list_A_24 value = scope:target_character
+			set_variable = { name = my_list_A_24 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_25
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_25
-					}
-				} set_variable = { name = my_list_A_25 value = scope:target_character
+			set_variable = { name = my_list_A_25 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_26
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_26
-					}
-				} set_variable = { name = my_list_A_26 value = scope:target_character
+			set_variable = { name = my_list_A_26 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_27
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_27
-					}
-				} set_variable = { name = my_list_A_27 value = scope:target_character
+			set_variable = { name = my_list_A_27 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_28
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_28
-					}
-				} set_variable = { name = my_list_A_28 value = scope:target_character
+			set_variable = { name = my_list_A_28 value = scope:target_character
+			}
+		}
+		else_if = {
+			limit = { NOT = { has_variable = my_list_A_29
 				}
 			}
-			else_if = { limit = { NOT = { has_variable = my_list_A_29
-					}
-				} set_variable = { name = my_list_A_29 value = scope:target_character
-				}
+			set_variable = { name = my_list_A_29 value = scope:target_character
 			}
 		}
 	}
-	# TODO B/C/D later
 }
 remove_character_from_list = {
-	# expects: list_name, target_character
+	# Removes target_character from the list
 	if = {
-		limit = { check_variable = { which = list_name value = A
-			}
+		limit = { var:my_list_A_0 = scope:target_character
 		}
-		if = { limit = { check_variable = { which = my_list_A_0  value = scope:target_character
-				}
-			} clr_variable = my_list_A_0
-		}
-		if = { limit = { check_variable = { which = my_list_A_1  value = scope:target_character
-				}
-			} clr_variable = my_list_A_1
-		}
-		if = { limit = { check_variable = { which = my_list_A_2  value = scope:target_character
-				}
-			} clr_variable = my_list_A_2
-		}
-		if = { limit = { check_variable = { which = my_list_A_3  value = scope:target_character
-				}
-			} clr_variable = my_list_A_3
-		}
-		if = { limit = { check_variable = { which = my_list_A_4  value = scope:target_character
-				}
-			} clr_variable = my_list_A_4
-		}
-		if = { limit = { check_variable = { which = my_list_A_5  value = scope:target_character
-				}
-			} clr_variable = my_list_A_5
-		}
-		if = { limit = { check_variable = { which = my_list_A_6  value = scope:target_character
-				}
-			} clr_variable = my_list_A_6
-		}
-		if = { limit = { check_variable = { which = my_list_A_7  value = scope:target_character
-				}
-			} clr_variable = my_list_A_7
-		}
-		if = { limit = { check_variable = { which = my_list_A_8  value = scope:target_character
-				}
-			} clr_variable = my_list_A_8
-		}
-		if = { limit = { check_variable = { which = my_list_A_9  value = scope:target_character
-				}
-			} clr_variable = my_list_A_9
-		}
-		if = { limit = { check_variable = { which = my_list_A_10 value = scope:target_character
-				}
-			} clr_variable = my_list_A_10
-		}
-		if = { limit = { check_variable = { which = my_list_A_11 value = scope:target_character
-				}
-			} clr_variable = my_list_A_11
-		}
-		if = { limit = { check_variable = { which = my_list_A_12 value = scope:target_character
-				}
-			} clr_variable = my_list_A_12
-		}
-		if = { limit = { check_variable = { which = my_list_A_13 value = scope:target_character
-				}
-			} clr_variable = my_list_A_13
-		}
-		if = { limit = { check_variable = { which = my_list_A_14 value = scope:target_character
-				}
-			} clr_variable = my_list_A_14
-		}
-		if = { limit = { check_variable = { which = my_list_A_15 value = scope:target_character
-				}
-			} clr_variable = my_list_A_15
-		}
-		if = { limit = { check_variable = { which = my_list_A_16 value = scope:target_character
-				}
-			} clr_variable = my_list_A_16
-		}
-		if = { limit = { check_variable = { which = my_list_A_17 value = scope:target_character
-				}
-			} clr_variable = my_list_A_17
-		}
-		if = { limit = { check_variable = { which = my_list_A_18 value = scope:target_character
-				}
-			} clr_variable = my_list_A_18
-		}
-		if = { limit = { check_variable = { which = my_list_A_19 value = scope:target_character
-				}
-			} clr_variable = my_list_A_19
-		}
-		if = { limit = { check_variable = { which = my_list_A_20 value = scope:target_character
-				}
-			} clr_variable = my_list_A_20
-		}
-		if = { limit = { check_variable = { which = my_list_A_21 value = scope:target_character
-				}
-			} clr_variable = my_list_A_21
-		}
-		if = { limit = { check_variable = { which = my_list_A_22 value = scope:target_character
-				}
-			} clr_variable = my_list_A_22
-		}
-		if = { limit = { check_variable = { which = my_list_A_23 value = scope:target_character
-				}
-			} clr_variable = my_list_A_23
-		}
-		if = { limit = { check_variable = { which = my_list_A_24 value = scope:target_character
-				}
-			} clr_variable = my_list_A_24
-		}
-		if = { limit = { check_variable = { which = my_list_A_25 value = scope:target_character
-				}
-			} clr_variable = my_list_A_25
-		}
-		if = { limit = { check_variable = { which = my_list_A_26 value = scope:target_character
-				}
-			} clr_variable = my_list_A_26
-		}
-		if = { limit = { check_variable = { which = my_list_A_27 value = scope:target_character
-				}
-			} clr_variable = my_list_A_27
-		}
-		if = { limit = { check_variable = { which = my_list_A_28 value = scope:target_character
-				}
-			} clr_variable = my_list_A_28
-		}
-		if = { limit = { check_variable = { which = my_list_A_29 value = scope:target_character
-				}
-			} clr_variable = my_list_A_29
-		}
+		remove_variable = my_list_A_0
 	}
-	# TODO B/C/D later
+	else_if = {
+		limit = { var:my_list_A_1 = scope:target_character
+		}
+		remove_variable = my_list_A_1
+	}
+	else_if = {
+		limit = { var:my_list_A_2 = scope:target_character
+		}
+		remove_variable = my_list_A_2
+	}
+	else_if = {
+		limit = { var:my_list_A_3 = scope:target_character
+		}
+		remove_variable = my_list_A_3
+	}
+	else_if = {
+		limit = { var:my_list_A_4 = scope:target_character
+		}
+		remove_variable = my_list_A_4
+	}
+	else_if = {
+		limit = { var:my_list_A_5 = scope:target_character
+		}
+		remove_variable = my_list_A_5
+	}
+	else_if = {
+		limit = { var:my_list_A_6 = scope:target_character
+		}
+		remove_variable = my_list_A_6
+	}
+	else_if = {
+		limit = { var:my_list_A_7 = scope:target_character
+		}
+		remove_variable = my_list_A_7
+	}
+	else_if = {
+		limit = { var:my_list_A_8 = scope:target_character
+		}
+		remove_variable = my_list_A_8
+	}
+	else_if = {
+		limit = { var:my_list_A_9 = scope:target_character
+		}
+		remove_variable = my_list_A_9
+	}
+	else_if = {
+		limit = { var:my_list_A_10 = scope:target_character
+		}
+		remove_variable = my_list_A_10
+	}
+	else_if = {
+		limit = { var:my_list_A_11 = scope:target_character
+		}
+		remove_variable = my_list_A_11
+	}
+	else_if = {
+		limit = { var:my_list_A_12 = scope:target_character
+		}
+		remove_variable = my_list_A_12
+	}
+	else_if = {
+		limit = { var:my_list_A_13 = scope:target_character
+		}
+		remove_variable = my_list_A_13
+	}
+	else_if = {
+		limit = { var:my_list_A_14 = scope:target_character
+		}
+		remove_variable = my_list_A_14
+	}
+	else_if = {
+		limit = { var:my_list_A_15 = scope:target_character
+		}
+		remove_variable = my_list_A_15
+	}
+	else_if = {
+		limit = { var:my_list_A_16 = scope:target_character
+		}
+		remove_variable = my_list_A_16
+	}
+	else_if = {
+		limit = { var:my_list_A_17 = scope:target_character
+		}
+		remove_variable = my_list_A_17
+	}
+	else_if = {
+		limit = { var:my_list_A_18 = scope:target_character
+		}
+		remove_variable = my_list_A_18
+	}
+	else_if = {
+		limit = { var:my_list_A_19 = scope:target_character
+		}
+		remove_variable = my_list_A_19
+	}
+	else_if = {
+		limit = { var:my_list_A_20 = scope:target_character
+		}
+		remove_variable = my_list_A_20
+	}
+	else_if = {
+		limit = { var:my_list_A_21 = scope:target_character
+		}
+		remove_variable = my_list_A_21
+	}
+	else_if = {
+		limit = { var:my_list_A_22 = scope:target_character
+		}
+		remove_variable = my_list_A_22
+	}
+	else_if = {
+		limit = { var:my_list_A_23 = scope:target_character
+		}
+		remove_variable = my_list_A_23
+	}
+	else_if = {
+		limit = { var:my_list_A_24 = scope:target_character
+		}
+		remove_variable = my_list_A_24
+	}
+	else_if = {
+		limit = { var:my_list_A_25 = scope:target_character
+		}
+		remove_variable = my_list_A_25
+	}
+	else_if = {
+		limit = { var:my_list_A_26 = scope:target_character
+		}
+		remove_variable = my_list_A_26
+	}
+	else_if = {
+		limit = { var:my_list_A_27 = scope:target_character
+		}
+		remove_variable = my_list_A_27
+	}
+	else_if = {
+		limit = { var:my_list_A_28 = scope:target_character
+		}
+		remove_variable = my_list_A_28
+	}
+	else_if = {
+		limit = { var:my_list_A_29 = scope:target_character
+		}
+		remove_variable = my_list_A_29
+	}
 }
 set_list_level = {
-	# expects: list_name, value
-	if = {
-		limit = { check_variable = { which = list_name value = A
-			}
-		}
-		set_variable = { name = my_list_A_level value = scope:value
-		}
-	}
-	else_if = {
-		limit = { check_variable = { which = list_name value = B
-			}
-		}
-		set_variable = { name = my_list_B_level value = scope:value
-		}
-	}
-	else_if = {
-		limit = { check_variable = { which = list_name value = C
-			}
-		}
-		set_variable = { name = my_list_C_level value = scope:value
-		}
-	}
-	else_if = {
-		limit = { check_variable = { which = list_name value = D
-			}
-		}
-		set_variable = { name = my_list_D_level value = scope:value
-		}
+	# Sets the level variable for list A (placeholder for multiple lists)
+	set_variable = {
+		name = my_list_A_level
+		value = scope:value
 	}
 }
