@@ -7,22 +7,33 @@
 		maximumsize = { -1 110
 		}
 		scissor = yes
+		# Build a character list from the current character's court
+		datacontext = "[CharacterWindow.GetCourt]"
+		# Build & filter the list
+		widget = {
+			name = "slave_list_builder"
+			datacontext = "[CharacterSelectionList]"
+			on_create = "
+				CharacterSelectionList.Clear;
+				CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
+				CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
+				CharacterSelectionList.Build;
+			"
+		}
 		vbox_character_row_item = {
 			name = "slaves"
 			blockoverride "portrait_datamodel" {
-				datamodel = "[CharacterWindow.GetSlaves]"
+				datamodel = "[CharacterSelectionList.GetList]"
 			}
-			blockoverride "header_text"
-			{
+			blockoverride "header_text" {
 				text = "CV_SLAVES_HEADING"
 			}
-			blockoverride "remaining_items"
-			{
-				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )]"
-				text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )|=]"
+			blockoverride "remaining_items" {
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )]"
+				text = "[GetNumberAbove_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )|=]"
 			}
 			blockoverride "expand_button_inside" {
-				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )]"
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )]"
 				onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
 			}
 		}
@@ -38,10 +49,9 @@
 				margin_top = 10
 				spacing = 5
 				blockoverride "portrait_datamodel" {
-					datamodel = "[CharacterWindow.GetSlaves]"
+					datamodel = "[CharacterSelectionList.GetList]"
 				}
-				blockoverride "header_text"
-				{
+				blockoverride "header_text" {
 					text = "CV_SLAVES_HEADING"
 				}
 				blockoverride "expand_button_inside" {

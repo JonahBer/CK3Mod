@@ -19,7 +19,7 @@ enslave_decorative = {
 			# TODO: Transfer to court
 			# TODO: change outfit
 			# TODO: change relationship with owner
-			set_character_flag = is_slave_decorative
+			add_character_flag = is_slave_decorative
 		}
 	}
 }
@@ -37,10 +37,10 @@ free_slave = {
 			}
 			# TODO: change relationship with owner
 			# TODO change outfit back to original / normal
-			clr_character_flag = is_slave_decorative
-			clr_character_flag = is_slave_concubine
-			clr_character_flag = is_slave_secondary_wife
-			clr_character_flag = is_slave_great_wife
+			remove_character_flag  = is_slave_decorative
+			remove_character_flag  = is_slave_concubine
+			remove_character_flag  = is_slave_secondary_wife
+			remove_character_flag  = is_slave_great_wife
 		}
 	}
 }
@@ -61,28 +61,28 @@ promote_slave = {
 					has_character_flag = is_slave_decorative
 				}
 				# TODO: check if enough room to promote
-				clr_character_flag = is_slave_decorative
-				set_character_flag = is_slave_concubine
+				remove_character_flag  = is_slave_decorative
+				add_character_flag = is_slave_concubine
 				# TODO: change relationship with owner
 				# TODO: change outfit according to tier
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_character_flag = is_slave_concubine
 				}
 				# TODO: check if enough room to promote
-				clr_character_flag = is_slave_concubine
-				set_character_flag = is_slave_secondary_wife
+				remove_character_flag  = is_slave_concubine
+				add_character_flag = is_slave_secondary_wife
 				# TODO: change relationship with owner
 				# TODO: change outfit according to tier
 			}
-			if = {
+			else_if = {
 				limit = {
 					has_character_flag = is_slave_secondary_wife
 				}
 				# TODO: check if enough room to promote
-				clr_character_flag = is_slave_secondary_wife
-				set_character_flag = is_slave_great_wife
+				remove_character_flag  = is_slave_secondary_wife
+				add_character_flag = is_slave_great_wife
 				# TODO: change relationship with owner
 				# TODO: change outfit according to tier
 			}
