@@ -1,5 +1,93 @@
 ﻿types CharacterSlaves
 {
+	type slave_section_widget = widget {
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		maximumsize = { -1 110
+		}
+		scissor = yes
+		vbox_character_row_item = {
+			name = "slaves"
+			blockoverride "portrait_datamodel" {
+				datamodel = "[GetNullCharacterDataModel(0)]"
+			}
+			blockoverride "header_text"
+			{
+				text = "ENSLAVED CHARACTERS"
+			}
+			blockoverride "remaining_items"
+			{
+				visible = yes
+				text = "0/30"
+			}
+			blockoverride "expand_button_inside" {
+				visible = yes
+				onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
+			}
+		}
+	}
+	type slave_section_expanded_widget = scrollbox {
+		name = "family_slaves_expanded"
+		visible = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
+		size = { 100% 100%
+		}
+		blockoverride "scrollbox_replace_vbox" {
+			vbox_character_row_item = {
+				name = "slaves"
+				margin_top = 10
+				spacing = 5
+				blockoverride "portrait_datamodel" {
+					datamodel = "[GetNullCharacterDataModel(0)]"
+				}
+				blockoverride "header_text"
+				{
+					text = "ENSLAVED CHARACTERS"
+				}
+				blockoverride "expand_button_inside" {
+					onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
+					down = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
+				}
+				blockoverride "gridbox_slots" {
+				}
+				blockoverride "find_partner"
+				{
+					hbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 10
+						margin_top = 10
+						button = {
+							name = "add_slave_button"
+							layoutpolicy_horizontal = expanding
+							datacontext = "[GetScriptedGui( 'add_character_to_list' )]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								align = center
+								raw_text = "+ ADD CURRENT"
+								default_format = "#low"
+							}
+							tooltip = "Add the currently viewed character to the slave list"
+							using = tooltip_above
+						}
+						button = {
+							name = "remove_slave_button"
+							layoutpolicy_horizontal = expanding
+							datacontext = "[GetScriptedGui( 'remove_character_from_list' )]"
+							onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope( 'target_character', CharacterWindow.GetCharacter.MakeScope ).End )]"
+							text_single = {
+								layoutpolicy_horizontal = expanding
+								align = center
+								raw_text = "- REMOVE"
+								default_format = "#low"
+							}
+							tooltip = "Remove the currently viewed character from the slave list"
+							using = tooltip_above
+						}
+					}
+				}
+			}
+		}
+	}
 	type slave_tab_widget = widget {
 		visible = "[CharacterWindow.IsTabShown('my_list')]"
 		size = { 100% 100%
@@ -82,6 +170,7 @@
 		name = "my_list_tab_button"
 		datacontext = "[CharacterWindow.GetCharacter]"
 		layoutpolicy_horizontal = expanding
+		visible = no
 		onclick = "[CharacterWindow.SetTab('my_list')]"
 		down    = "[CharacterWindow.IsTabShown('my_list')]"
 		using = tooltip_above
