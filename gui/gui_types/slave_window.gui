@@ -1,0 +1,56 @@
+﻿types SlaveWindow
+{
+	type slave_widget = widget {
+		name = "slaves"
+		layoutpolicy_horizontal = expanding
+		layoutpolicy_vertical = expanding
+		maximumsize = { -1 110
+		}
+		scissor = yes
+		vbox_character_row_item = {
+			name = "slaves"
+			blockoverride "portrait_datamodel" {
+				datamodel = "[CharacterWindow.GetSlaves]"
+			}
+			blockoverride "header_text"
+			{
+				text = "CV_SLAVES_HEADING"
+			}
+			blockoverride "remaining_items"
+			{
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )]"
+				text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )|=]"
+			}
+			blockoverride "expand_button_inside" {
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSlaves), '(int32)7' )]"
+				onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
+			}
+		}
+	}
+	type slave_expanded = scrollbox {
+		name = "slaves_expanded"
+		visible = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
+		size = { 100% 100%
+		}
+		blockoverride "scrollbox_replace_vbox" {
+			vbox_character_row_item = {
+				name = "slaves"
+				margin_top = 10
+				spacing = 5
+				blockoverride "portrait_datamodel" {
+					datamodel = "[CharacterWindow.GetSlaves]"
+				}
+				blockoverride "header_text"
+				{
+					text = "CV_SLAVES_HEADING"
+				}
+				blockoverride "expand_button_inside" {
+					onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
+					down = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
+				}
+				blockoverride "gridbox_slots" {
+				}
+			}
+		}
+	}
+}

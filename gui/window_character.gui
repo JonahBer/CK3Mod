@@ -1613,8 +1613,6 @@ window = {
 					}
 				}
 			}
-			slave_button_tab = {
-			}
 			button_tab = {
 				name = "court_button"
 				datacontext = "[CharacterWindow.GetCharacter]"
@@ -2012,6 +2010,8 @@ window = {
 							}
 						}
 					}
+					slave_widget = {
+					}
 					expand = {
 					}
 				}
@@ -2095,6 +2095,9 @@ window = {
 							}
 						}
 					}
+				}
+				### SLAVES EXPANDED
+				slave_expanded = {
 				}
 			}
 			####################################
@@ -2754,8 +2757,6 @@ window = {
 						}
 					}
 				}
-			}
-			slave_tab_widget = {
 			}
 			####################################
 			############ COURT TAB #############
