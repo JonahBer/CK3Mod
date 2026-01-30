@@ -1,0 +1,91 @@
+﻿# The slave tiers: decorative slave (max=30), concubine slave (max=10), and secondary wife (max=3), the great wife (max=1)
+# TODO: figure out how to force character to stay in court for duration of their slavery
+enslave_decorative = {
+	scope = character
+	effect = {
+		# TODO: have check for if character is already enslaved
+		if = {
+			limit = {
+				OR = {
+					has_character_flag = is_slave_decorative
+					has_character_flag = is_slave_concubine
+					has_character_flag = is_slave_secondary_wife
+					has_character_flag = is_slave_great_wife
+				}
+			}
+		}
+		else {
+			# TODO: have check for if character is eligible to be enslaved
+			# TODO: Transfer to court
+			# TODO: change outfit
+			# TODO: change relationship with owner
+			add_character_flag = is_slave_decorative
+		}
+	}
+}
+free_slave = {
+	scope = character
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					has_character_flag = is_slave_decorative
+					has_character_flag = is_slave_concubine
+					has_character_flag = is_slave_secondary_wife
+					has_character_flag = is_slave_great_wife
+				}
+			}
+			# TODO: change relationship with owner
+			# TODO change outfit back to original / normal
+			remove_character_flag  = is_slave_decorative
+			remove_character_flag  = is_slave_concubine
+			remove_character_flag  = is_slave_secondary_wife
+			remove_character_flag  = is_slave_great_wife
+		}
+	}
+}
+promote_slave = {
+	scope = character
+	effect = {
+		# TODO: check if character is one of the tiers of slave
+		if = {
+			limit = {
+				OR = {
+					has_character_flag = is_slave_decorative
+					has_character_flag = is_slave_concubine
+					has_character_flag = is_slave_secondary_wife
+				}
+			}
+			if = {
+				limit = {
+					has_character_flag = is_slave_decorative
+				}
+				# TODO: check if enough room to promote
+				remove_character_flag  = is_slave_decorative
+				add_character_flag = is_slave_concubine
+				# TODO: change relationship with owner
+				# TODO: change outfit according to tier
+			}
+			else_if = {
+				limit = {
+					has_character_flag = is_slave_concubine
+				}
+				# TODO: check if enough room to promote
+				remove_character_flag  = is_slave_concubine
+				add_character_flag = is_slave_secondary_wife
+				# TODO: change relationship with owner
+				# TODO: change outfit according to tier
+			}
+			else_if = {
+				limit = {
+					has_character_flag = is_slave_secondary_wife
+				}
+				# TODO: check if enough room to promote
+				remove_character_flag  = is_slave_secondary_wife
+				add_character_flag = is_slave_great_wife
+				# TODO: change relationship with owner
+				# TODO: change outfit according to tier
+			}
+		}
+	}
+}
