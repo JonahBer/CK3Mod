@@ -1,8 +1,8 @@
-scripted_localization = {
+﻿defined_text = {
 	debug_slave_flag_decorative = {
 		text = {
-			trigger = { scope:target = { has_character_flag = is_slave_decorative
-				}
+			trigger = {
+				has_character_flag = is_slave_decorative
 			}
 			localization_key = debug_yes
 		}
@@ -11,8 +11,8 @@ scripted_localization = {
 	}
 	debug_slave_flag_concubine = {
 		text = {
-			trigger = { scope:target = { has_character_flag = is_slave_concubine
-				}
+			trigger = {
+				has_character_flag = is_slave_concubine
 			}
 			localization_key = debug_yes
 		}
@@ -21,8 +21,8 @@ scripted_localization = {
 	}
 	debug_slave_flag_secondary_wife = {
 		text = {
-			trigger = { scope:target = { has_character_flag = is_slave_secondary_wife
-				}
+			trigger = {
+				has_character_flag = is_slave_secondary_wife
 			}
 			localization_key = debug_yes
 		}
@@ -31,8 +31,8 @@ scripted_localization = {
 	}
 	debug_slave_flag_great_wife = {
 		text = {
-			trigger = { scope:target = { has_character_flag = is_slave_great_wife
-				}
+			trigger = {
+				has_character_flag = is_slave_great_wife
 			}
 			localization_key = debug_yes
 		}

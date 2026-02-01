@@ -1,4 +1,4 @@
-namespace = slave_debug
+﻿namespace = slave_debug
 slave_debug.1 = {
 	type = character_event
 	is_triggered_only = yes

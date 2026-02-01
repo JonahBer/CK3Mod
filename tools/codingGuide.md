@@ -710,6 +710,121 @@ debug_show_slave_flags = {
 
 **Note on what you will see:** many CK3 toast styles show **only the title** on-screen. The `desc` and especially `tooltip` are usually visible when you **hover the toast** (and your game’s tooltip settings like “Timer Lock” can make that feel delayed).
 
+## 19.2 Popup “debug inspector” window from a right-click interaction (event window)
+
+If you want a right-click **character interaction** to open a full **event popup** (instead of a toast you must hover),
+use `trigger_event` from `on_accept` and pass the clicked character as the event **target**.
+
+### Step 1 — Interaction (right-click)
+
+**Path:** `common/character_interactions/debug_interactions.txt`
+
+```plaintext
+debug_show_slave_flags = {
+	category = interaction_debug_main
+	type = character_interaction
+
+	common_interaction = yes
+	auto_accept = yes
+	is_shown = { debug_only = yes }
+	is_valid_showing_failures_only = { always = yes }
+
+	on_accept = {
+		scope:actor = {
+			trigger_event = {
+				id = slave_debug.1
+				target = scope:recipient
+			}
+		}
+	}
+
+	ai_potential = { always = no }
+}
+```
+
+### Step 2 — Event definition (popup window)
+
+**Path:** `events/slave_debug_events.txt`
+
+```plaintext
+namespace = slave_debug
+
+slave_debug.1 = {
+	type = character_event
+	is_triggered_only = yes
+
+	title = debug_slave_flags_title
+	desc = debug_slave_flags_tt
+
+	option = { name = OK }
+}
+```
+
+### Step 3 — Localization for the event text
+
+**Path:** `localization/english/debug_interactions_l_english.yml` (UTF-8 with BOM)
+
+Use `target` in the text, because we passed `target = scope:recipient` in the interaction:
+
+```yaml
+l_english:
+ debug_slave_flags_title: "Slave Flags"
+ debug_slave_flags_tt: "#T Slave Flags#!\nDecorative: [target.Custom('debug_slave_flag_decorative')]"
+```
+
+### Step 4 — Scripted localization (the “Custom(…)” keys)
+
+**Path:** `common/scripted_localization/debug_slave_flags.txt`
+
+**Important:** CK3 scripted localization is loaded from `common/scripted_localization/` and is defined under
+`defined_text = { ... }`. If you use a different top-level key, the game will not load your entries and you’ll see
+errors like `ERROR:[target.Custom('your_key')]` in-game.
+
+```plaintext
+defined_text = {
+
+	debug_slave_flag_decorative = {
+		text = {
+			trigger = { has_character_flag = is_slave_decorative }
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no }
+	}
+
+	debug_slave_flag_concubine = {
+		text = {
+			trigger = { has_character_flag = is_slave_concubine }
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no }
+	}
+
+	debug_slave_flag_secondary_wife = {
+		text = {
+			trigger = { has_character_flag = is_slave_secondary_wife }
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no }
+	}
+
+	debug_slave_flag_great_wife = {
+		text = {
+			trigger = { has_character_flag = is_slave_great_wife }
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no }
+	}
+}
+```
+
+### Troubleshooting checklist
+
+If you see `ERROR:[target.Custom('debug_slave_flag_decorative')]`:
+
+- The scripted localization key is not loaded (wrong folder, wrong filename, or wrong top-level key — it must be `defined_text`).
+- The key name in the `.yml` does not exactly match the key defined in `common/scripted_localization/`.
+- You forgot to restart the game after changing scripted localization files (they do not reliably hot-reload).
+
 
 ---
 
