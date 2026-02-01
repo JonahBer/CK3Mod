@@ -1679,425 +1679,439 @@ window = {
 			####################################
 			########### FAMILY TAB #############
 			####################################
-			widget = {
-				name = "family"
-				visible = "[And(CharacterWindow.IsTabShown('family'), Not( GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('hide_ui_character_sheet_bottom').GetValue, '(CFixedPoint)0' ) ))]"
-				size = { 100% 100%
+			scrollbox = {
+				name = "my_scrollbox"
+				layoutpolicy_vertical = expanding
+				layoutpolicy_horizontal = expanding
+				size = {
+					400 100
 				}
-				using = Animation_Tab_Switch
-				vbox = {
-					name = "family_main_view"
-					visible = "[Not( Or(CharacterWindow.IsRelationExpanded( 'children' ), Or(CharacterWindow.IsRelationExpanded( 'siblings' ), CharacterWindow.IsRelationExpanded( 'concubines' ), ) ) )]"
+				blockoverride "scrollbox_margins" {
+				}
+				blockoverride "scrollbox_content" {
 					widget = {
-						name = "parents_grandparents_spouses"
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
-						maximumsize = { -1 110
+						name = "family"
+						visible = "[And(CharacterWindow.IsTabShown('family'), Not( GreaterThan_CFixedPoint( GetPlayer.MakeScope.Var('hide_ui_character_sheet_bottom').GetValue, '(CFixedPoint)0' ) ))]"
+						size = { 100% 100%
 						}
-						scissor = yes
-						hbox = {
-							vbox_character_row_item = {
-								name = "children"
+						layoutpolicy_horizontal = expanding
+						using = Animation_Tab_Switch
+						vbox = {
+							name = "family_main_view"
+							visible = "[Not( Or(CharacterWindow.IsRelationExpanded( 'children' ), Or(CharacterWindow.IsRelationExpanded( 'siblings' ), CharacterWindow.IsRelationExpanded( 'concubines' ), ) ) )]"
+							layoutpolicy_horizontal = expanding
+							widget = {
+								name = "parents_grandparents_spouses"
+								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[CharacterWindow.GetParents]"
+								maximumsize = { -1 110
 								}
-								blockoverride "header_text"
-								{
-									text = "PARENTS"
-								}
-								blockoverride "expand_button" {
-								}
-							}
-							vbox_character_row_item = {
-								name = "grandparents"
-								visible = "[Not(Or(GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' ), GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' )))]"
-								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[CharacterWindow.GetGrandparents]"
-								}
-								blockoverride "header_text"
-								{
-									text = "GRANDPARENTS"
-								}
-								blockoverride "expand_button" {
-								}
-							}
-							vbox_character_row_item = {
-								name = "grandparents_contracted"
-								visible = "[Or(GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' ), GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ))]"
-								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[CharacterWindow.GetGrandparents]"
-								}
-								blockoverride "header_text"
-								{
-									text = "GRANDPARENTS"
-								}
-								blockoverride "expand_button" {
-								}
-								blockoverride "gridbox"
-								{
-									overlappingitembox = {
-										size = { 170 90
-										}
-										block "portrait_datamodel" {
+								scissor = yes
+								hbox = {
+									vbox_character_row_item = {
+										name = "children"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
 											datamodel = "[CharacterWindow.GetParents]"
 										}
-										item = {
-											portrait_head_small = {
-												blockoverride "portrait_button"
-												{
-													using = tooltip_ne
-												}
-											}
+										blockoverride "header_text"
+										{
+											text = "PARENTS"
+										}
+										blockoverride "expand_button" {
 										}
 									}
-								}
-							}
-							vbox_character_row_item = {
-								name = "secondary_spouses"
-								visible = "[GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' )]"
-								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[CharacterWindow.GetSecondarySpouses]"
-								}
-								blockoverride "header_text"
-								{
-									text = "SECONDARY_SPOUSES"
-								}
-								blockoverride "expand_button" {
-								}
-								blockoverride "find_partner"
-								{
-									fixedgridbox = {
-										name = "potential"
-										datamodel = "[GetNullCharacterDataModel( Character.CalcUnusedSecondarySpouseSlots )]"
-										visible = "[Character.IsPlayerInteractionShown('marry_off_interaction')]"
-										flipdirection = yes
-										addcolumn = 85
-										addrow = 90
-										item = {
-											container = {
-												portrait_head_small = {
-													visible = "[Not( ObjectsEqual( GetPlayer, CharacterWindow.GetCharacter ) )]"
-													blockoverride "portrait_button_template_onclick"
-													{
-														onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
-													}
-													blockoverride "portrait_button_template_tooltip"
-													{
-														tooltip = "CHARACTER_WINDOW_FIND_SPOUSE"
-													}
-													blockoverride "onclick"
-													{
-														onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
-														button_icon = {
-															parentanchor = center
-															alwaystransparent = yes
-															size = { 20 20
-															}
-															position = {-5 -5
-															}
-															texture = "gfx/interface/icons/flat_icons/plus.dds"
-														}
-													}
+									vbox_character_row_item = {
+										name = "grandparents"
+										visible = "[Not(Or(GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' ), GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' )))]"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
+											datamodel = "[CharacterWindow.GetGrandparents]"
+										}
+										blockoverride "header_text"
+										{
+											text = "GRANDPARENTS"
+										}
+										blockoverride "expand_button" {
+										}
+									}
+									vbox_character_row_item = {
+										name = "grandparents_contracted"
+										visible = "[Or(GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' ), GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ))]"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
+											datamodel = "[CharacterWindow.GetGrandparents]"
+										}
+										blockoverride "header_text"
+										{
+											text = "GRANDPARENTS"
+										}
+										blockoverride "expand_button" {
+										}
+										blockoverride "gridbox"
+										{
+											overlappingitembox = {
+												size = { 170 90
 												}
-												portrait_head_small = {
-													visible = "[ObjectsEqual( GetPlayer, CharacterWindow.GetCharacter )]"
-													blockoverride "portrait_button_template_onclick"
-													{
-														onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
-													}
-													blockoverride "portrait_button_template_tooltip"
-													{
-														tooltip = "CHARACTER_WINDOW_FIND_SPOUSE_SELF"
-													}
-													blockoverride "onclick"
-													{
-														onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
-														button_icon = {
-															parentanchor = center
-															alwaystransparent = yes
-															size = { 26 26
-															}
-															position = {-5 0
-															}
-															texture = "gfx/interface/icons/flat_icons/plus.dds"
+												block "portrait_datamodel" {
+													datamodel = "[CharacterWindow.GetParents]"
+												}
+												item = {
+													portrait_head_small = {
+														blockoverride "portrait_button"
+														{
+															using = tooltip_ne
 														}
 													}
 												}
 											}
 										}
 									}
-								}
-							}
-							vbox_character_row_item = {
-								name = "consorts"
-								visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ), LessThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' ))]"
-								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[DataModelFirst( CharacterWindow.GetConcubines, '(int32)3' )]"
-								}
-								blockoverride "header_text"
-								{
-									text = "CV_CONCUBINES_HEADING"
-								}
-								blockoverride "remaining_items"
-								{
-									visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
-									text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )|=]"
-								}
-								blockoverride "expand_button_inside" {
-									visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
-									onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
-								}
-								blockoverride "find_partner"
-								{
-									fixedgridbox = {
-										name = "potential"
-										datamodel = "[GetNullCharacterDataModel( Subtract_int32( '(int32)3', GetDataModelSize(CharacterWindow.GetConcubines) ) )]"
-										visible = "[Character.IsPlayerInteractionShown('find_concubine')]"
-										flipdirection = yes
-										addcolumn = 85
-										addrow = 90
-										maxverticalslots = 1
-										item = {
-											container = {
-												portrait_head_small = {
-													blockoverride "portrait_button_template_onclick"
-													{
-														onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('find_concubine')]"
-														enabled = "[CharacterWindow.GetCharacter.IsPlayerInteractionValid('find_concubine')]"
-														button_plus = {
-															parentanchor = center
-															alwaystransparent = yes
+									vbox_character_row_item = {
+										name = "secondary_spouses"
+										visible = "[GreaterThan_int32( Character.GetMaxSpouses, '(int32)1' )]"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
+											datamodel = "[CharacterWindow.GetSecondarySpouses]"
+										}
+										blockoverride "header_text"
+										{
+											text = "SECONDARY_SPOUSES"
+										}
+										blockoverride "expand_button" {
+										}
+										blockoverride "find_partner"
+										{
+											fixedgridbox = {
+												name = "potential"
+												datamodel = "[GetNullCharacterDataModel( Character.CalcUnusedSecondarySpouseSlots )]"
+												visible = "[Character.IsPlayerInteractionShown('marry_off_interaction')]"
+												flipdirection = yes
+												addcolumn = 85
+												addrow = 90
+												item = {
+													container = {
+														portrait_head_small = {
+															visible = "[Not( ObjectsEqual( GetPlayer, CharacterWindow.GetCharacter ) )]"
+															blockoverride "portrait_button_template_onclick"
+															{
+																onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
+															}
+															blockoverride "portrait_button_template_tooltip"
+															{
+																tooltip = "CHARACTER_WINDOW_FIND_SPOUSE"
+															}
+															blockoverride "onclick"
+															{
+																onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
+																button_icon = {
+																	parentanchor = center
+																	alwaystransparent = yes
+																	size = { 20 20
+																	}
+																	position = {-5 -5
+																	}
+																	texture = "gfx/interface/icons/flat_icons/plus.dds"
+																}
+															}
+														}
+														portrait_head_small = {
+															visible = "[ObjectsEqual( GetPlayer, CharacterWindow.GetCharacter )]"
+															blockoverride "portrait_button_template_onclick"
+															{
+																onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
+															}
+															blockoverride "portrait_button_template_tooltip"
+															{
+																tooltip = "CHARACTER_WINDOW_FIND_SPOUSE_SELF"
+															}
+															blockoverride "onclick"
+															{
+																onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('marry_off_interaction')]"
+																button_icon = {
+																	parentanchor = center
+																	alwaystransparent = yes
+																	size = { 26 26
+																	}
+																	position = {-5 0
+																	}
+																	texture = "gfx/interface/icons/flat_icons/plus.dds"
+																}
+															}
 														}
 													}
-													blockoverride "portrait_button_template_tooltip"
-													{
-														tooltip = "[CharacterWindow.GetCharacter.GetPlayerInteractionTooltip('find_concubine')]"
+												}
+											}
+										}
+									}
+									vbox_character_row_item = {
+										name = "consorts"
+										visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ), LessThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' ))]"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
+											datamodel = "[DataModelFirst( CharacterWindow.GetConcubines, '(int32)3' )]"
+										}
+										blockoverride "header_text"
+										{
+											text = "CV_CONCUBINES_HEADING"
+										}
+										blockoverride "remaining_items"
+										{
+											visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
+											text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )|=]"
+										}
+										blockoverride "expand_button_inside" {
+											visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
+											onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
+										}
+										blockoverride "find_partner"
+										{
+											fixedgridbox = {
+												name = "potential"
+												datamodel = "[GetNullCharacterDataModel( Subtract_int32( '(int32)3', GetDataModelSize(CharacterWindow.GetConcubines) ) )]"
+												visible = "[Character.IsPlayerInteractionShown('find_concubine')]"
+												flipdirection = yes
+												addcolumn = 85
+												addrow = 90
+												maxverticalslots = 1
+												item = {
+													container = {
+														portrait_head_small = {
+															blockoverride "portrait_button_template_onclick"
+															{
+																onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('find_concubine')]"
+																enabled = "[CharacterWindow.GetCharacter.IsPlayerInteractionValid('find_concubine')]"
+																button_plus = {
+																	parentanchor = center
+																	alwaystransparent = yes
+																}
+															}
+															blockoverride "portrait_button_template_tooltip"
+															{
+																tooltip = "[CharacterWindow.GetCharacter.GetPlayerInteractionTooltip('find_concubine')]"
+															}
+														}
 													}
 												}
 											}
 										}
+									}
+									vbox_character_row_item = {
+										name = "consorts_contracted"
+										visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ), GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)2' ))]"
+										layoutpolicy_vertical = expanding
+										blockoverride "portrait_datamodel" {
+											datamodel = "[DataModelFirst( CharacterWindow.GetConcubines, Character.GetMaxConsorts )]"
+										}
+										blockoverride "header_text"
+										{
+											text = "CV_CONCUBINES_HEADING"
+										}
+										blockoverride "remaining_items"
+										{
+											visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), Character.GetMaxConsorts )]"
+											text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetConcubines), Character.GetMaxConsorts )|=]"
+										}
+										blockoverride "expand_button_inside" {
+											visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
+											onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
+										}
+										blockoverride "find_partner"
+										{
+											fixedgridbox = {
+												name = "potential"
+												datamodel = "[GetNullCharacterDataModel( '(int32)1' )]"
+												visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, GetDataModelSize(CharacterWindow.GetConcubines) ), Character.IsPlayerInteractionShown('find_concubine'))]"
+												flipdirection = yes
+												addcolumn = 85
+												addrow = 90
+												maxverticalslots = 1
+												item = {
+													portrait_head_small = {
+														blockoverride "portrait_button_template_onclick"
+														{
+															onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('find_concubine')]"
+															enabled = "[CharacterWindow.GetCharacter.IsPlayerInteractionValid('find_concubine')]"
+															button_plus = {
+																parentanchor = center
+																alwaystransparent = yes
+															}
+														}
+														blockoverride "portrait_button_template_tooltip"
+														{
+															tooltip = "[CharacterWindow.GetCharacter.GetPlayerInteractionTooltip('find_concubine')]"
+														}
+													}
+												}
+											}
+										}
+										blockoverride "gridbox"
+										{
+											overlappingitembox = {
+												size = { 170 90
+												}
+												block "portrait_datamodel" {
+													datamodel = "[CharacterWindow.GetConcubines]"
+												}
+												item = {
+													portrait_head_small = {
+														blockoverride "portrait_button"
+														{
+															using = tooltip_ne
+														}
+													}
+												}
+											}
+										}
+									}
+									expand = {
 									}
 								}
 							}
-							vbox_character_row_item = {
-								name = "consorts_contracted"
-								visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, '(int32)0' ), GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)2' ))]"
+							widget = {
+								name = "children"
+								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = expanding
-								blockoverride "portrait_datamodel" {
-									datamodel = "[DataModelFirst( CharacterWindow.GetConcubines, Character.GetMaxConsorts )]"
+								maximumsize = { -1 110
 								}
-								blockoverride "header_text"
-								{
-									text = "CV_CONCUBINES_HEADING"
-								}
-								blockoverride "remaining_items"
-								{
-									visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), Character.GetMaxConsorts )]"
-									text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetConcubines), Character.GetMaxConsorts )|=]"
-								}
-								blockoverride "expand_button_inside" {
-									visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetConcubines), '(int32)3' )]"
-									onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
-								}
-								blockoverride "find_partner"
-								{
-									fixedgridbox = {
-										name = "potential"
-										datamodel = "[GetNullCharacterDataModel( '(int32)1' )]"
-										visible = "[And(GreaterThan_int32( Character.GetMaxConsorts, GetDataModelSize(CharacterWindow.GetConcubines) ), Character.IsPlayerInteractionShown('find_concubine'))]"
-										flipdirection = yes
-										addcolumn = 85
-										addrow = 90
-										maxverticalslots = 1
-										item = {
-											portrait_head_small = {
-												blockoverride "portrait_button_template_onclick"
-												{
-													onclick = "[CharacterWindow.GetCharacter.OpenPlayerInteraction('find_concubine')]"
-													enabled = "[CharacterWindow.GetCharacter.IsPlayerInteractionValid('find_concubine')]"
-													button_plus = {
-														parentanchor = center
-														alwaystransparent = yes
-													}
-												}
-												blockoverride "portrait_button_template_tooltip"
-												{
-													tooltip = "[CharacterWindow.GetCharacter.GetPlayerInteractionTooltip('find_concubine')]"
-												}
-											}
-										}
+								scissor = yes
+								vbox_character_row_item = {
+									name = "children"
+									blockoverride "portrait_datamodel" {
+										datamodel = "[CharacterWindow.GetChildren]"
+									}
+									blockoverride "header_text"
+									{
+										text = "CV_CHILDREN_HEADING"
+									}
+									blockoverride "remaining_items"
+									{
+										visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )]"
+										text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )|=]"
+									}
+									blockoverride "expand_button_inside" {
+										visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )]"
+										onclick = "[CharacterWindow.ToggleExpandedRelation( 'children' )]"
 									}
 								}
-								blockoverride "gridbox"
-								{
-									overlappingitembox = {
-										size = { 170 90
-										}
-										block "portrait_datamodel" {
-											datamodel = "[CharacterWindow.GetConcubines]"
-										}
-										item = {
-											portrait_head_small = {
-												blockoverride "portrait_button"
-												{
-													using = tooltip_ne
-												}
-											}
-										}
+							}
+							widget = {
+								name = "siblings"
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+								maximumsize = { -1 110
+								}
+								scissor = yes
+								vbox_character_row_item = {
+									name = "siblings"
+									blockoverride "portrait_datamodel" {
+										datamodel = "[CharacterWindow.GetSiblings]"
+									}
+									blockoverride "header_text"
+									{
+										text = "CV_SIBLINGS_HEADING"
+									}
+									blockoverride "remaining_items"
+									{
+										visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )]"
+										text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )|=]"
+									}
+									blockoverride "expand_button_inside" {
+										visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )]"
+										onclick = "[CharacterWindow.ToggleExpandedRelation( 'siblings' )]"
 									}
 								}
+							}
+							slave_widget = {
 							}
 							expand = {
 							}
 						}
-					}
-					widget = {
-						name = "children"
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
-						maximumsize = { -1 110
-						}
-						scissor = yes
-						vbox_character_row_item = {
-							name = "children"
-							blockoverride "portrait_datamodel" {
-								datamodel = "[CharacterWindow.GetChildren]"
+						### SIBLINGS EXPANDED
+						scrollbox = {
+							name = "family_siblings_expanded"
+							visible = "[CharacterWindow.IsRelationExpanded( 'siblings' )]"
+							size = { 100% 100%
 							}
-							blockoverride "header_text"
-							{
-								text = "CV_CHILDREN_HEADING"
-							}
-							blockoverride "remaining_items"
-							{
-								visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )]"
-								text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )|=]"
-							}
-							blockoverride "expand_button_inside" {
-								visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetChildren), '(int32)7' )]"
-								onclick = "[CharacterWindow.ToggleExpandedRelation( 'children' )]"
-							}
-						}
-					}
-					widget = {
-						name = "siblings"
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
-						maximumsize = { -1 110
-						}
-						scissor = yes
-						vbox_character_row_item = {
-							name = "siblings"
-							blockoverride "portrait_datamodel" {
-								datamodel = "[CharacterWindow.GetSiblings]"
-							}
-							blockoverride "header_text"
-							{
-								text = "CV_SIBLINGS_HEADING"
-							}
-							blockoverride "remaining_items"
-							{
-								visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )]"
-								text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )|=]"
-							}
-							blockoverride "expand_button_inside" {
-								visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetSiblings), '(int32)7' )]"
-								onclick = "[CharacterWindow.ToggleExpandedRelation( 'siblings' )]"
+							blockoverride "scrollbox_replace_vbox" {
+								vbox_character_row_item = {
+									name = "siblings"
+									margin_top = 10
+									spacing = 5
+									blockoverride "portrait_datamodel" {
+										datamodel = "[CharacterWindow.GetSiblings]"
+									}
+									blockoverride "header_text"
+									{
+										text = "CV_SIBLINGS_HEADING"
+									}
+									blockoverride "expand_button_inside" {
+										onclick = "[CharacterWindow.ToggleExpandedRelation( 'siblings' )]"
+										down = "[CharacterWindow.IsRelationExpanded( 'siblings' )]"
+									}
+									blockoverride "gridbox_slots" {
+									}
+								}
 							}
 						}
-					}
-					slave_widget = {
-					}
-					expand = {
-					}
-				}
-				### SIBLINGS EXPANDED
-				scrollbox = {
-					name = "family_siblings_expanded"
-					visible = "[CharacterWindow.IsRelationExpanded( 'siblings' )]"
-					size = { 100% 100%
-					}
-					blockoverride "scrollbox_replace_vbox" {
-						vbox_character_row_item = {
-							name = "siblings"
-							margin_top = 10
-							spacing = 5
-							blockoverride "portrait_datamodel" {
-								datamodel = "[CharacterWindow.GetSiblings]"
+						### CHILDREN EXPANDED
+						scrollbox = {
+							name = "family_children_expanded"
+							visible = "[CharacterWindow.IsRelationExpanded( 'children' )]"
+							size = { 100% 100%
 							}
-							blockoverride "header_text"
-							{
-								text = "CV_SIBLINGS_HEADING"
-							}
-							blockoverride "expand_button_inside" {
-								onclick = "[CharacterWindow.ToggleExpandedRelation( 'siblings' )]"
-								down = "[CharacterWindow.IsRelationExpanded( 'siblings' )]"
-							}
-							blockoverride "gridbox_slots" {
+							blockoverride "scrollbox_replace_vbox" {
+								vbox_character_row_item = {
+									name = "children"
+									margin_top = 10
+									spacing = 5
+									blockoverride "portrait_datamodel" {
+										datamodel = "[CharacterWindow.GetChildren]"
+									}
+									blockoverride "header_text"
+									{
+										text = "CV_CHILDREN_HEADING"
+									}
+									blockoverride "expand_button_inside" {
+										onclick = "[CharacterWindow.ToggleExpandedRelation( 'children' )]"
+										down = "[CharacterWindow.IsRelationExpanded( 'children' )]"
+									}
+									blockoverride "gridbox_slots" {
+									}
+								}
 							}
 						}
-					}
-				}
-				### CHILDREN EXPANDED
-				scrollbox = {
-					name = "family_children_expanded"
-					visible = "[CharacterWindow.IsRelationExpanded( 'children' )]"
-					size = { 100% 100%
-					}
-					blockoverride "scrollbox_replace_vbox" {
-						vbox_character_row_item = {
-							name = "children"
-							margin_top = 10
-							spacing = 5
-							blockoverride "portrait_datamodel" {
-								datamodel = "[CharacterWindow.GetChildren]"
+						### CONCUBINES EXPANDED
+						scrollbox = {
+							name = "family_concubines_expanded"
+							visible = "[CharacterWindow.IsRelationExpanded( 'concubines' )]"
+							size = { 100% 100%
 							}
-							blockoverride "header_text"
-							{
-								text = "CV_CHILDREN_HEADING"
-							}
-							blockoverride "expand_button_inside" {
-								onclick = "[CharacterWindow.ToggleExpandedRelation( 'children' )]"
-								down = "[CharacterWindow.IsRelationExpanded( 'children' )]"
-							}
-							blockoverride "gridbox_slots" {
-							}
-						}
-					}
-				}
-				### CONCUBINES EXPANDED
-				scrollbox = {
-					name = "family_concubines_expanded"
-					visible = "[CharacterWindow.IsRelationExpanded( 'concubines' )]"
-					size = { 100% 100%
-					}
-					blockoverride "scrollbox_replace_vbox" {
-						vbox_character_row_item = {
-							name = "concubines"
-							margin_top = 10
-							spacing = 5
-							blockoverride "portrait_datamodel" {
-								datamodel = "[CharacterWindow.GetConcubines]"
-							}
-							blockoverride "header_text"
-							{
-								text = "CV_CONCUBINES_HEADING"
-							}
-							blockoverride "expand_button_inside" {
-								onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
-								down = "[CharacterWindow.IsRelationExpanded( 'concubines' )]"
-							}
-							blockoverride "gridbox_slots" {
+							blockoverride "scrollbox_replace_vbox" {
+								vbox_character_row_item = {
+									name = "concubines"
+									margin_top = 10
+									spacing = 5
+									blockoverride "portrait_datamodel" {
+										datamodel = "[CharacterWindow.GetConcubines]"
+									}
+									blockoverride "header_text"
+									{
+										text = "CV_CONCUBINES_HEADING"
+									}
+									blockoverride "expand_button_inside" {
+										onclick = "[CharacterWindow.ToggleExpandedRelation( 'concubines' )]"
+										down = "[CharacterWindow.IsRelationExpanded( 'concubines' )]"
+									}
+									blockoverride "gridbox_slots" {
+									}
+								}
 							}
 						}
+						### SLAVES EXPANDED
+						slave_expanded = {
+						}
 					}
-				}
-				### SLAVES EXPANDED
-				slave_expanded = {
 				}
 			}
 			####################################
