@@ -658,6 +658,77 @@ MyValueDescription = {
 
 Use in localization with `[GetCustomizableLocalization('MyValueDescription')]` or similar.
 
+
+### 18.X Customizable localization for YES/NO flag readouts (recommended)
+
+If `ERROR:[target.Custom('...')]` happens when using scripted localization, you can avoid `Custom('...')` entirely by using **customizable localization** (the same pattern used in Carnalitas' `CarnMilkProductionDescription`).【turn6file0†L1-L47】
+
+**When to use:** you want dynamic text like "Yes/No" based on triggers, and you want to render it in events/tooltips reliably.
+
+**Files:**
+
+1) Define the customizable localization entries:
+
+Path: `common/customizable_localization/slave_flags_custom_loc.txt`
+
+```txt
+SlaveFlagDecorativeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_decorative }
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no }
+}
+
+SlaveFlagConcubineYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_concubine }
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no }
+}
+
+SlaveFlagSecondaryWifeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_secondary_wife }
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no }
+}
+
+SlaveFlagGreatWifeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_great_wife }
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no }
+}
+```
+
+2) Use them in localization (event desc, tooltip, etc.). Preferred scoped call:
+
+```txt
+Decorative: [target.GetCustomizableLocalization('SlaveFlagDecorativeYN')]
+Concubine: [target.GetCustomizableLocalization('SlaveFlagConcubineYN')]
+Secondary Wife: [target.GetCustomizableLocalization('SlaveFlagSecondaryWifeYN')]
+Great Wife: [target.GetCustomizableLocalization('SlaveFlagGreatWifeYN')]
+```
+
+If your build doesn't recognize `GetCustomizableLocalization` as a method on `target`, use the global form in the correct scope instead:
+
+```txt
+[GetCustomizableLocalization('SlaveFlagDecorativeYN')]
+```
+
+(That version evaluates in the current localization scope.)
+
+**Why this works:** customizable localization keys are loaded from `common/customizable_localization/` and return a `localization_key` based on triggers, without relying on scripted localization `Custom('...')`.
+
+
 ---
 
 ## 19. Messages (Toasts / Notifications)
@@ -677,154 +748,6 @@ my_event_message = {
 ```
 
 Then in an event/effect: `send_interface_message = { type = my_event_message title = my_specific_title right_icon = this ... }`.
-
-### 19.1 Toasts from character interactions (debug-friendly)
-
-If you want a right-click **character interaction** to immediately show a toast when clicked (no confirmation window), you typically need **all** of the following:
-
-- Put the toast in `on_accept = { ... }` (this is the block that runs when the interaction is accepted).
-- Add `common_interaction = yes` to skip the “interaction confirmation” dialog.
-- Add `auto_accept = yes` so it executes instantly (useful for debug tools).
-
-Example:
-
-```plaintext
-debug_show_slave_flags = {
-	...
-	common_interaction = yes
-	auto_accept = yes
-
-	on_accept = {
-		scope:actor = {
-			send_interface_toast = {
-				title = debug_slave_flags_title
-				desc = debug_slave_flags_desc
-				tooltip = debug_slave_flags_tt
-				left_icon = scope:recipient
-				right_icon = scope:actor
-			}
-		}
-	}
-}
-```
-
-**Note on what you will see:** many CK3 toast styles show **only the title** on-screen. The `desc` and especially `tooltip` are usually visible when you **hover the toast** (and your game’s tooltip settings like “Timer Lock” can make that feel delayed).
-
-## 19.2 Popup “debug inspector” window from a right-click interaction (event window)
-
-If you want a right-click **character interaction** to open a full **event popup** (instead of a toast you must hover),
-use `trigger_event` from `on_accept` and pass the clicked character as the event **target**.
-
-### Step 1 — Interaction (right-click)
-
-**Path:** `common/character_interactions/debug_interactions.txt`
-
-```plaintext
-debug_show_slave_flags = {
-	category = interaction_debug_main
-	type = character_interaction
-
-	common_interaction = yes
-	auto_accept = yes
-	is_shown = { debug_only = yes }
-	is_valid_showing_failures_only = { always = yes }
-
-	on_accept = {
-		scope:actor = {
-			trigger_event = {
-				id = slave_debug.1
-				target = scope:recipient
-			}
-		}
-	}
-
-	ai_potential = { always = no }
-}
-```
-
-### Step 2 — Event definition (popup window)
-
-**Path:** `events/slave_debug_events.txt`
-
-```plaintext
-namespace = slave_debug
-
-slave_debug.1 = {
-	type = character_event
-	is_triggered_only = yes
-
-	title = debug_slave_flags_title
-	desc = debug_slave_flags_tt
-
-	option = { name = OK }
-}
-```
-
-### Step 3 — Localization for the event text
-
-**Path:** `localization/english/debug_interactions_l_english.yml` (UTF-8 with BOM)
-
-Use `target` in the text, because we passed `target = scope:recipient` in the interaction:
-
-```yaml
-l_english:
- debug_slave_flags_title: "Slave Flags"
- debug_slave_flags_tt: "#T Slave Flags#!\nDecorative: [target.Custom('debug_slave_flag_decorative')]"
-```
-
-### Step 4 — Scripted localization (the “Custom(…)” keys)
-
-**Path:** `common/scripted_localization/debug_slave_flags.txt`
-
-**Important:** CK3 scripted localization is loaded from `common/scripted_localization/` and is defined under
-`defined_text = { ... }`. If you use a different top-level key, the game will not load your entries and you’ll see
-errors like `ERROR:[target.Custom('your_key')]` in-game.
-
-```plaintext
-defined_text = {
-
-	debug_slave_flag_decorative = {
-		text = {
-			trigger = { has_character_flag = is_slave_decorative }
-			localization_key = debug_yes
-		}
-		text = { localization_key = debug_no }
-	}
-
-	debug_slave_flag_concubine = {
-		text = {
-			trigger = { has_character_flag = is_slave_concubine }
-			localization_key = debug_yes
-		}
-		text = { localization_key = debug_no }
-	}
-
-	debug_slave_flag_secondary_wife = {
-		text = {
-			trigger = { has_character_flag = is_slave_secondary_wife }
-			localization_key = debug_yes
-		}
-		text = { localization_key = debug_no }
-	}
-
-	debug_slave_flag_great_wife = {
-		text = {
-			trigger = { has_character_flag = is_slave_great_wife }
-			localization_key = debug_yes
-		}
-		text = { localization_key = debug_no }
-	}
-}
-```
-
-### Troubleshooting checklist
-
-If you see `ERROR:[target.Custom('debug_slave_flag_decorative')]`:
-
-- The scripted localization key is not loaded (wrong folder, wrong filename, or wrong top-level key — it must be `defined_text`).
-- The key name in the `.yml` does not exactly match the key defined in `common/scripted_localization/`.
-- You forgot to restart the game after changing scripted localization files (they do not reliably hot-reload).
-
 
 ---
 

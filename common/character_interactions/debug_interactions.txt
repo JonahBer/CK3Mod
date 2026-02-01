@@ -30,6 +30,8 @@
 debug_set_slave_decorative_flag_on_character = {
 	type = character_interaction
 	category = interaction_debug_main
+	common_interaction = yes
+	auto_accept = yes
 	is_shown = {
 		debug_only = yes
 		NOT = { scope:recipient = { has_character_flag = is_slave_decorative
@@ -41,8 +43,11 @@ debug_set_slave_decorative_flag_on_character = {
 			}
 		}
 	}
-	effect = {
-		scope:recipient = { add_character_flag = is_slave_decorative
+	on_accept = {
+		scope:recipient = {
+			add_character_flag = is_slave_decorative
+		}
+		scope:actor = { add_gold = 1
 		}
 	}
 	ai_potential = { always = no
@@ -60,8 +65,10 @@ debug_remove_slave_decorative_flag_on_character = {
 		scope:recipient = { has_character_flag = is_slave_decorative
 		}
 	}
-	effect = {
+	on_accept = {
 		scope:recipient = { remove_character_flag = is_slave_decorative
+		}
+		scope:actor = { add_gold = 1
 		}
 	}
 	ai_potential = { always = no

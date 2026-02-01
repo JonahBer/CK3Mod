@@ -1,0 +1,40 @@
+SlaveFlagDecorativeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_decorative
+		}
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no
+	}
+}
+SlaveFlagConcubineYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_concubine
+		}
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no
+	}
+}
+SlaveFlagSecondaryWifeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_secondary_wife
+		}
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no
+	}
+}
+SlaveFlagGreatWifeYN = {
+	type = character
+	text = {
+		trigger = { has_character_flag = is_slave_great_wife
+		}
+		localization_key = debug_yes
+	}
+	text = { localization_key = debug_no
+	}
+}
