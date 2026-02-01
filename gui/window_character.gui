@@ -1671,10 +1671,8 @@ window = {
 		}
 		widget = {
 			visible = "[CharacterWindow.AreNoneExpanded]"
-			layoutpolicy_vertical = preferred
+			layoutpolicy_vertical = expanding
 			layoutpolicy_horizontal = expanding
-			size = { 0 350
-			}
 			using = Animation_Tab_Switch
 			####################################
 			########### FAMILY TAB #############
@@ -1684,7 +1682,7 @@ window = {
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
 				size = {
-					400 100
+					100% 500
 				}
 				blockoverride "scrollbox_margins" {
 				}
@@ -2023,8 +2021,6 @@ window = {
 								}
 							}
 							slave_widget = {
-							}
-							expand = {
 							}
 						}
 						### SIBLINGS EXPANDED
