@@ -78,12 +78,9 @@ debug_show_slave_flags = {
 	}
 	on_accept = {
 		scope:actor = {
-			send_interface_toast = {
-				title = debug_slave_flags_title
-				desc = debug_slave_flags_desc
-				tooltip = debug_slave_flags_tt
-				left_icon = scope:recipient
-				right_icon = scope:actor
+			trigger_event = {
+				id = slave_debug.1
+				target = scope:recipient
 			}
 		}
 	}
