@@ -27,39 +27,66 @@
 	}
 	auto_accept = yes
 }
-debug_add_to_list_a = {
-	category = debug
-	desc = "debug_add_to_list_a_desc"
+debug_set_slave_decorative_flag_on_character = {
+	type = character_interaction
+	category = interaction_debug_main
 	is_shown = {
-		always = yes
-	}
-	is_valid = {
-		always = yes
-	}
-	effect = {
-		scope:actor = {
-			execute_scripted_effect = {
-				name = add_character_to_list
-				list_name = A
-				target_character = scope:recipient
+		debug_only = yes
+		NOT = { scope:recipient = { has_character_flag = is_slave_decorative
 			}
 		}
+	}
+	is_valid_showing_failures_only = {
+		NOT = { scope:recipient = { has_character_flag = is_slave_decorative
+			}
+		}
+	}
+	effect = {
+		scope:recipient = { add_character_flag = is_slave_decorative
+		}
+	}
+	ai_potential = { always = no
 	}
 }
-debug_remove_from_list_a = {
-	category = debug
-	desc = "debug_remove_from_list_a_desc"
-	is_shown = { always = yes
+debug_remove_slave_decorative_flag_on_character = {
+	type = character_interaction
+	category = interaction_debug_main
+	is_shown = {
+		debug_only = yes
+		scope:recipient = { has_character_flag = is_slave_decorative
+		}
 	}
-	is_valid = { always = yes
+	is_valid_showing_failures_only = {
+		scope:recipient = { has_character_flag = is_slave_decorative
+		}
 	}
 	effect = {
+		scope:recipient = { remove_character_flag = is_slave_decorative
+		}
+	}
+	ai_potential = { always = no
+	}
+}
+debug_show_slave_flags = {
+	type = character_interaction
+	category = interaction_debug_main
+	common_interaction = yes
+	auto_accept = yes
+	is_shown = { debug_only = yes
+	}
+	is_valid_showing_failures_only = { always = yes
+	}
+	on_accept = {
 		scope:actor = {
-			execute_scripted_effect = {
-				name = remove_character_from_list
-				list_name = A
-				target_character = scope:recipient
+			send_interface_toast = {
+				title = debug_slave_flags_title
+				desc = debug_slave_flags_desc
+				tooltip = debug_slave_flags_tt
+				left_icon = scope:recipient
+				right_icon = scope:actor
 			}
 		}
+	}
+	ai_potential = { always = no
 	}
 }

@@ -1,0 +1,11 @@
+﻿l_english:
+debug_yes: "Yes"
+debug_no: "No"
+
+debug_show_slave_flags: "Show Slave Flags"
+debug_slave_flags_title: "Slave Flags"
+debug_slave_flags_desc: "HOVER ME"
+debug_slave_flags_tt: "#T Slave Flags#!\nDecorative: [recipient.Custom('debug_slave_flag_decorative')]\nConcubine: [recipient.Custom('debug_slave_flag_concubine')]\nSecondary Wife: [recipient.Custom('debug_slave_flag_secondary_wife')]\nGreat Wife: [recipient.Custom('debug_slave_flag_great_wife')]"
+
+debug_set_slave_decorative_flag_on_character: "Set: Decorative Slave Flag"
+debug_remove_slave_decorative_flag_on_character: "Remove: Decorative Slave Flag"

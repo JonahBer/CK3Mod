@@ -1,0 +1,50 @@
+scripted_localization = {
+	# Decorative
+	debug_slave_flag_decorative = {
+		text = {
+			trigger = {
+				scope:recipient = { has_character_flag = is_slave_decorative
+				}
+			}
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no
+		}
+	}
+	# Concubine
+	debug_slave_flag_concubine = {
+		text = {
+			trigger = {
+				scope:recipient = { has_character_flag = is_slave_concubine
+				}
+			}
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no
+		}
+	}
+	# Secondary wife
+	debug_slave_flag_secondary_wife = {
+		text = {
+			trigger = {
+				scope:recipient = { has_character_flag = is_slave_secondary_wife
+				}
+			}
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no
+		}
+	}
+	# Great wife
+	debug_slave_flag_great_wife = {
+		text = {
+			trigger = {
+				scope:recipient = { has_character_flag = is_slave_great_wife
+				}
+			}
+			localization_key = debug_yes
+		}
+		text = { localization_key = debug_no
+		}
+	}
+}

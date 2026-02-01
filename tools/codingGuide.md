@@ -90,9 +90,9 @@ YourModName/
 ├── gfx/              # Textures, icons (e.g. .dds)
 ├── gui/              # UI overrides (.gui)
 └── localization/     # All text (.yml per language)
-    ├── english/
-    ├── french/
-    └── ...
+	├── english/
+	├── french/
+	└── ...
 ```
 
 - **common/** — Most gameplay content: decisions, traits, modifiers, scripted triggers/effects, on_actions, etc.
@@ -677,6 +677,39 @@ my_event_message = {
 ```
 
 Then in an event/effect: `send_interface_message = { type = my_event_message title = my_specific_title right_icon = this ... }`.
+
+### 19.1 Toasts from character interactions (debug-friendly)
+
+If you want a right-click **character interaction** to immediately show a toast when clicked (no confirmation window), you typically need **all** of the following:
+
+- Put the toast in `on_accept = { ... }` (this is the block that runs when the interaction is accepted).
+- Add `common_interaction = yes` to skip the “interaction confirmation” dialog.
+- Add `auto_accept = yes` so it executes instantly (useful for debug tools).
+
+Example:
+
+```plaintext
+debug_show_slave_flags = {
+	...
+	common_interaction = yes
+	auto_accept = yes
+
+	on_accept = {
+		scope:actor = {
+			send_interface_toast = {
+				title = debug_slave_flags_title
+				desc = debug_slave_flags_desc
+				tooltip = debug_slave_flags_tt
+				left_icon = scope:recipient
+				right_icon = scope:actor
+			}
+		}
+	}
+}
+```
+
+**Note on what you will see:** many CK3 toast styles show **only the title** on-screen. The `desc` and especially `tooltip` are usually visible when you **hover the toast** (and your game’s tooltip settings like “Timer Lock” can make that feel delayed).
+
 
 ---
 
