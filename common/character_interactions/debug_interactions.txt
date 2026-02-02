@@ -7,18 +7,12 @@
 	is_shown = { debug_only = yes
 	}
 	send_options_exclusive = yes
-	send_option = {
-		flag = ping_option_1
-		localization = debug_ping_self_1
+	send_option = { flag = ping_option_1 localization = debug_ping_self_1
 	}
-	send_option = {
-		flag = ping_option_2
-		localization = debug_ping_self_2
+	send_option = { flag = ping_option_2 localization = debug_ping_self_2
 	}
 	on_accept = {
-		send_interface_toast = {
-			left_icon = scope:actor
-			right_icon = scope:recipient
+		send_interface_toast = { left_icon = scope:actor right_icon = scope:recipient
 		}
 		scope:actor = { add_gold = 50
 		}
@@ -44,10 +38,7 @@ debug_set_slave_decorative_flag_on_character = {
 		}
 	}
 	on_accept = {
-		scope:recipient = {
-			add_character_flag = is_slave_decorative
-		}
-		scope:actor = { add_gold = 1
+		scope:recipient = { add_character_flag = is_slave_decorative
 		}
 	}
 	ai_potential = { always = no
@@ -56,6 +47,8 @@ debug_set_slave_decorative_flag_on_character = {
 debug_remove_slave_decorative_flag_on_character = {
 	type = character_interaction
 	category = interaction_debug_main
+	common_interaction = yes
+	auto_accept = yes
 	is_shown = {
 		debug_only = yes
 		scope:recipient = { has_character_flag = is_slave_decorative
@@ -67,8 +60,6 @@ debug_remove_slave_decorative_flag_on_character = {
 	}
 	on_accept = {
 		scope:recipient = { remove_character_flag = is_slave_decorative
-		}
-		scope:actor = { add_gold = 1
 		}
 	}
 	ai_potential = { always = no
@@ -85,9 +76,36 @@ debug_show_slave_flags = {
 	}
 	on_accept = {
 		scope:actor = {
-			trigger_event = {
-				id = slave_debug.1
-				target = scope:recipient
+			send_interface_toast = {
+				title = debug_slave_flags_title
+				desc = debug_slave_flags_desc
+				tooltip = debug_slave_flags_tt
+				left_icon = scope:recipient
+				right_icon = scope:actor
+			}
+		}
+	}
+	ai_potential = { always = no
+	}
+}
+debug_refresh_slave_window_slots = {
+	type = character_interaction
+	category = interaction_debug_main
+	common_interaction = yes
+	auto_accept = yes
+	is_shown = { debug_only = yes
+	}
+	is_valid_showing_failures_only = { always = yes
+	}
+	on_accept = {
+		refresh_all_slave_slots = { owner = scope:actor
+		}
+		# optional confirmation toast
+		scope:actor = {
+			send_interface_toast = {
+				title = debug_refresh_slave_window_slots_title
+				desc  = debug_refresh_slave_window_slots_desc
+				left_icon = scope:actor
 			}
 		}
 	}

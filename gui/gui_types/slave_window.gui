@@ -9,7 +9,7 @@
 		scissor = yes
 		# Build a character list from the current character's court
 		datacontext = "[CharacterWindow.GetCourt]"
-		# Build & filter the list
+		# Build & filter the list (runs when this widget is created)
 		widget = {
 			name = "slave_list_builder"
 			datacontext = "[CharacterSelectionList]"
@@ -17,6 +17,7 @@
 				CharacterSelectionList.Clear;
 				CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
 				CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
+				CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
 				CharacterSelectionList.Build;
 			"
 		}
@@ -34,7 +35,15 @@
 			}
 			blockoverride "expand_button_inside" {
 				visible = "[GreaterThan_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )]"
-				onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
+				# Refresh list right before expanding (prevents stale portraits)
+				onclick = "
+					CharacterSelectionList.Clear;
+					CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
+					CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
+					CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
+					CharacterSelectionList.Build;
+					CharacterWindow.ToggleExpandedRelation( 'slaves' );
+				"
 			}
 		}
 	}
@@ -42,6 +51,18 @@
 		name = "slaves_expanded"
 		visible = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
 		size = { 100% 100%
+		}
+		# When the expanded widget is created, rebuild again (extra safety)
+		widget = {
+			name = "slave_list_builder_expanded"
+			datacontext = "[CharacterSelectionList]"
+			on_create = "
+				CharacterSelectionList.Clear;
+				CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
+				CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
+				CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
+				CharacterSelectionList.Build;
+			"
 		}
 		blockoverride "scrollbox_replace_vbox" {
 			vbox_character_row_item = {

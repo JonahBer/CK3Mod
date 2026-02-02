@@ -1,0 +1,12 @@
+﻿is_slave_any_tier = {
+	OR = {
+		has_character_flag = is_slave_decorative
+		has_character_flag = is_slave_concubine
+		has_character_flag = is_slave_secondary_wife
+		has_character_flag = is_slave_great_wife
+	}
+}
+is_not_character_window_character = {
+	NOT = { this = root
+	}
+}

@@ -4,7 +4,12 @@
 
  debug_show_slave_flags: "Show Slave Flags"
  debug_slave_flags_title: "Slave Flags"
- debug_slave_flags_tt: "#T Slave Flags#!\nDecorative: [target.Custom('debug_slave_flag_decorative')]\nConcubine: [target.Custom('debug_slave_flag_concubine')]\nSecondary Wife: [target.Custom('debug_slave_flag_secondary_wife')]\nGreat Wife: [target.Custom('debug_slave_flag_great_wife')]"
+ debug_slave_flags_desc: "Flag readout for this character."
+ debug_slave_flags_tt: "#T Slave Flags#!\nDecorative: [recipient.Custom('debug_slave_flag_decorative')]\nConcubine: [recipient.Custom('debug_slave_flag_concubine')]\nSecondary Wife: [recipient.Custom('debug_slave_flag_secondary_wife')]\nGreat Wife: [recipient.Custom('debug_slave_flag_great_wife')]"
 
  debug_set_slave_decorative_flag_on_character: "Set: Decorative Slave Flag"
  debug_remove_slave_decorative_flag_on_character: "Remove: Decorative Slave Flag"
+ debug_refresh_slave_window_slots: "Refresh Slave Window Slots"
+ debug_refresh_slave_window_slots_title: "Slave UI refreshed"
+ debug_refresh_slave_window_slots_desc: "Updated portrait slots from your court."
+ SLAVE_REFRESH_TOOLTIP: "Run the debug interaction 'Refresh Slave Window Slots' to update portraits."

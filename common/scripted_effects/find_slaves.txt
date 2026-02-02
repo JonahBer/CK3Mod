@@ -1,0 +1,133 @@
+﻿# common / scripted_effects / find_slaves.txt
+# TODO: function for finding nth slave of a flag for having portrait in window_character_slaves.gui
+# The idea: the slaves are of 4 different tiers, each with their own character flag. The tiers are: decorative, concubine, secondary wife, great wife.
+# This function would find the nth slave of a given tier (character flag) for displaying their portrait in the slave management window.
+# The slaves are forced to stay within the owner's court so we need a way to loop through the owners court memebers and find the nth slave of a given tier.
+# common/scripted_effects/find_slaves.txt
+# Finds the Nth courtier with a given slave tier flag and stores their character ID in a variable on the owner.
+# common/scripted_effects/find_slaves.txt
+# Finds the Nth courtier with a given slave tier flag and stores their character ID in a variable on the owner.
+#
+# Variables written (examples):
+#   slave_decorative_0 .. slave_decorative_6
+#   slave_concubine_0 .. slave_concubine_6
+#   slave_secondary_wife_0 .. slave_secondary_wife_2
+#   slave_great_wife_0
+#
+# GUI reads these with:
+#   Character.GetByID(GetPlayer.MakeScope.Var('slave_decorative_0').GetValue)
+find_nth_courtier_with_flag_to_var = {
+	# PARAMS:
+	#   owner = <character scope>   (usually GetPlayer / scope:actor)
+	#   flag  = <flag>             (use: flag:is_slave_decorative)
+	#   n     = <int>              (1-based)
+	#   out_var = <string>         (variable name on owner)
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	# clear output each run
+	scope:_owner = { remove_variable = $out_var$
+	}
+	# counters on owner
+	scope:_owner = {
+		set_variable = { name = _match_count value = 0
+		}
+		set_variable = { name = _found value = 0
+		}
+	}
+	scope:_owner = {
+		every_courtier = {
+			limit = {
+				# stop after found
+				scope:_owner = { NOT = { check_variable = { name = _found value = 1
+						}
+					}
+				}
+				has_character_flag = $flag$
+			}
+			scope:_owner = { change_variable = { name = _match_count add = 1
+				}
+			}
+			if = {
+				limit = { scope:_owner = { check_variable = { name = _match_count value = $n$
+						}
+					}
+				}
+				scope:_owner = {
+					set_variable = { name = $out_var$ value = this
+					}
+					set_variable = { name = _found value = 1
+					}
+				}
+			}
+		}
+	}
+	# cleanup
+	scope:_owner = { remove_variable = _match_count
+	}
+	scope:_owner = { remove_variable = _found
+	}
+}
+refresh_slave_slots_decorative = {
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 1 out_var = slave_decorative_0
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 2 out_var = slave_decorative_1
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 3 out_var = slave_decorative_2
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 4 out_var = slave_decorative_3
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 5 out_var = slave_decorative_4
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 6 out_var = slave_decorative_5
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_decorative n = 7 out_var = slave_decorative_6
+	}
+}
+refresh_slave_slots_concubine = {
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 1 out_var = slave_concubine_0
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 2 out_var = slave_concubine_1
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 3 out_var = slave_concubine_2
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 4 out_var = slave_concubine_3
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 5 out_var = slave_concubine_4
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 6 out_var = slave_concubine_5
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_concubine n = 7 out_var = slave_concubine_6
+	}
+}
+refresh_slave_slots_secondary_wife = {
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_secondary_wife n = 1 out_var = slave_secondary_wife_0
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_secondary_wife n = 2 out_var = slave_secondary_wife_1
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_secondary_wife n = 3 out_var = slave_secondary_wife_2
+	}
+}
+refresh_slave_slots_great_wife = {
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	find_nth_courtier_with_flag_to_var = { owner = scope:_owner flag = flag:is_slave_great_wife n = 1 out_var = slave_great_wife_0
+	}
+}
+refresh_all_slave_slots = {
+	$owner$ = { save_temporary_scope_as = _owner
+	}
+	refresh_slave_slots_decorative    = { owner = scope:_owner
+	}
+	refresh_slave_slots_concubine     = { owner = scope:_owner
+	}
+	refresh_slave_slots_secondary_wife = { owner = scope:_owner
+	}
+	refresh_slave_slots_great_wife    = { owner = scope:_owner
+	}
+}

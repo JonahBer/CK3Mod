@@ -229,6 +229,48 @@ my_interaction = {
 - **cooldown** — Uses a script value from `script_values/` (e.g. `months = my_interaction_cooldown`).
 - **on_accept** — Runs when the player (or AI) confirms.
 
+### 4.1 Debug interactions: `on_accept` vs `effect` (important)
+
+For `type = character_interaction`, **put your actual gameplay changes in `on_accept`**, not `effect`.
+
+- Use `on_accept = { ... }` for things like `add_character_flag`, `remove_character_flag`, `trigger_event`, etc.
+- `effect = { ... }` is common in decisions/events, but is not the reliable execution block for character interactions.
+
+If you want the interaction to run immediately (no confirmation popup), add both:
+
+```plaintext
+common_interaction = yes
+auto_accept = yes
+```
+
+This is especially useful for debug right-click tools (set/remove flags, open a debug event window, etc.).
+
+**Example (set a flag only if missing):**
+
+```plaintext
+debug_set_slave_decorative_flag_on_character = {
+	type = character_interaction
+	category = interaction_debug_main
+	common_interaction = yes
+	auto_accept = yes
+
+	is_shown = {
+		debug_only = yes
+		NOT = { scope:recipient = { has_character_flag = is_slave_decorative } }
+	}
+
+	is_valid_showing_failures_only = {
+		NOT = { scope:recipient = { has_character_flag = is_slave_decorative } }
+	}
+
+	on_accept = {
+		scope:recipient = { add_character_flag = is_slave_decorative }
+	}
+
+	ai_potential = { always = no }
+}
+```
+
 ---
 
 ## 5. Traits
@@ -595,7 +637,7 @@ Use with **set_relation_slave** / **set_relation_slave_owner** (or your own effe
 
 ---
 
-## 16. Effect Localization
+## 16. Effect Localization (I dont think this works)
 
 **Path:** `common/effect_localization/your_effects.txt`
 
@@ -614,9 +656,9 @@ set_relation_slave = {
 
 ---
 
-## 17. Trigger Localization
+## 17. Trigger Localization (I dont think this works)
 
-**Path:** `common/trigger_localization/your_triggers.txt`
+**Path:** `common/trigger_localization/your_triggers.txt` 
 
 Maps scripted trigger names to tooltip text (first/third/global, positive/negative):
 
@@ -633,7 +675,7 @@ my_can_do_thing_trigger = {
 
 ---
 
-## 18. Customizable Localization
+## 18. Customizable Localization (I dont think this works)
 
 **Path:** `common/customizable_localization/your_custom_loc.txt`
 
@@ -657,77 +699,6 @@ MyValueDescription = {
 ```
 
 Use in localization with `[GetCustomizableLocalization('MyValueDescription')]` or similar.
-
-
-### 18.X Customizable localization for YES/NO flag readouts (recommended)
-
-If `ERROR:[target.Custom('...')]` happens when using scripted localization, you can avoid `Custom('...')` entirely by using **customizable localization** (the same pattern used in Carnalitas' `CarnMilkProductionDescription`).【turn6file0†L1-L47】
-
-**When to use:** you want dynamic text like "Yes/No" based on triggers, and you want to render it in events/tooltips reliably.
-
-**Files:**
-
-1) Define the customizable localization entries:
-
-Path: `common/customizable_localization/slave_flags_custom_loc.txt`
-
-```txt
-SlaveFlagDecorativeYN = {
-	type = character
-	text = {
-		trigger = { has_character_flag = is_slave_decorative }
-		localization_key = debug_yes
-	}
-	text = { localization_key = debug_no }
-}
-
-SlaveFlagConcubineYN = {
-	type = character
-	text = {
-		trigger = { has_character_flag = is_slave_concubine }
-		localization_key = debug_yes
-	}
-	text = { localization_key = debug_no }
-}
-
-SlaveFlagSecondaryWifeYN = {
-	type = character
-	text = {
-		trigger = { has_character_flag = is_slave_secondary_wife }
-		localization_key = debug_yes
-	}
-	text = { localization_key = debug_no }
-}
-
-SlaveFlagGreatWifeYN = {
-	type = character
-	text = {
-		trigger = { has_character_flag = is_slave_great_wife }
-		localization_key = debug_yes
-	}
-	text = { localization_key = debug_no }
-}
-```
-
-2) Use them in localization (event desc, tooltip, etc.). Preferred scoped call:
-
-```txt
-Decorative: [target.GetCustomizableLocalization('SlaveFlagDecorativeYN')]
-Concubine: [target.GetCustomizableLocalization('SlaveFlagConcubineYN')]
-Secondary Wife: [target.GetCustomizableLocalization('SlaveFlagSecondaryWifeYN')]
-Great Wife: [target.GetCustomizableLocalization('SlaveFlagGreatWifeYN')]
-```
-
-If your build doesn't recognize `GetCustomizableLocalization` as a method on `target`, use the global form in the correct scope instead:
-
-```txt
-[GetCustomizableLocalization('SlaveFlagDecorativeYN')]
-```
-
-(That version evaluates in the current localization scope.)
-
-**Why this works:** customizable localization keys are loaded from `common/customizable_localization/` and return a `localization_key` based on triggers, without relying on scripted localization `Custom('...')`.
-
 
 ---
 

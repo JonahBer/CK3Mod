@@ -1,4 +1,4 @@
-slave_tab_widget = {
+﻿slave_tab_widget = {
 	widget = {
 		name = "my_list"
 		visible = "[And(GreaterThan_CFixedPoint(GetPlayer.MakeScope.Var('my_list_tab_open').GetValue,'(CFixedPoint)0'), CharacterWindow.IsTabShown('court'))]"
