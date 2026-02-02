@@ -22,7 +22,6 @@
 	auto_accept = yes
 }
 debug_set_slave_decorative_flag_on_character = {
-	type = character_interaction
 	category = interaction_debug_main
 	common_interaction = yes
 	auto_accept = yes
@@ -41,11 +40,11 @@ debug_set_slave_decorative_flag_on_character = {
 		scope:recipient = { add_character_flag = is_slave_decorative
 		}
 	}
+	#TODO: 'ai_potential' added, but no 'ai_frequency' or 'ai_frequency_by_tier', won't be used
 	ai_potential = { always = no
 	}
 }
 debug_remove_slave_decorative_flag_on_character = {
-	type = character_interaction
 	category = interaction_debug_main
 	common_interaction = yes
 	auto_accept = yes
@@ -62,11 +61,11 @@ debug_remove_slave_decorative_flag_on_character = {
 		scope:recipient = { remove_character_flag = is_slave_decorative
 		}
 	}
+	#TODO: 'ai_potential' added, but no 'ai_frequency' or 'ai_frequency_by_tier', won't be used
 	ai_potential = { always = no
 	}
 }
 debug_show_slave_flags = {
-	type = character_interaction
 	category = interaction_debug_main
 	common_interaction = yes
 	auto_accept = yes
@@ -85,11 +84,11 @@ debug_show_slave_flags = {
 			}
 		}
 	}
+	#TODO: 'ai_potential' added, but no 'ai_frequency' or 'ai_frequency_by_tier', won't be used
 	ai_potential = { always = no
 	}
 }
 debug_refresh_slave_window_slots = {
-	type = character_interaction
 	category = interaction_debug_main
 	common_interaction = yes
 	auto_accept = yes
@@ -109,6 +108,7 @@ debug_refresh_slave_window_slots = {
 			}
 		}
 	}
+	#TODO: 'ai_potential' added, but no 'ai_frequency' or 'ai_frequency_by_tier', won't be used
 	ai_potential = { always = no
 	}
 }

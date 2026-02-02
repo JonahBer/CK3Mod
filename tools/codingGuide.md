@@ -267,7 +267,8 @@ debug_set_slave_decorative_flag_on_character = {
 		scope:recipient = { add_character_flag = is_slave_decorative }
 	}
 
-	ai_potential = { always = no }
+	#TODO: 'ai_potential' added, but no 'ai_frequency' or 'ai_frequency_by_tier', won't be used
+ai_potential = { always = no }
 }
 ```
 

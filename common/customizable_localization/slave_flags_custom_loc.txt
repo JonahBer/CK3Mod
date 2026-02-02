@@ -1,4 +1,4 @@
-SlaveFlagDecorativeYN = {
+﻿SlaveFlagDecorativeYN = {
 	type = character
 	text = {
 		trigger = { has_character_flag = is_slave_decorative

@@ -1,7 +1,4 @@
 ﻿l_english:
- debug_yes: "Yes"
- debug_no: "No"
-
  debug_show_slave_flags: "Show Slave Flags"
  debug_slave_flags_title: "Slave Flags"
  debug_slave_flags_desc: "Flag readout for this character."

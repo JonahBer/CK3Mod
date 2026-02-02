@@ -7,43 +7,23 @@
 		maximumsize = { -1 110
 		}
 		scissor = yes
-		# Build a character list from the current character's court
-		datacontext = "[CharacterWindow.GetCourt]"
-		# Build & filter the list (runs when this widget is created)
-		widget = {
-			name = "slave_list_builder"
-			datacontext = "[CharacterSelectionList]"
-			on_create = "
-				CharacterSelectionList.Clear;
-				CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
-				CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
-				CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
-				CharacterSelectionList.Build;
-			"
-		}
+		# NOTE: This currently shows the whole court. Filtering a custom "slaves only" list
+		# requires a dedicated datamodel function (GUI can't build/filter lists in-script).
 		vbox_character_row_item = {
 			name = "slaves"
 			blockoverride "portrait_datamodel" {
-				datamodel = "[CharacterSelectionList.GetList]"
+				datamodel = "[CharacterWindow.GetCourt]"
 			}
 			blockoverride "header_text" {
 				text = "CV_SLAVES_HEADING"
 			}
 			blockoverride "remaining_items" {
-				visible = "[GreaterThan_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )]"
-				text = "[GetNumberAbove_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )|=]"
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetCourt), '(int32)7' )]"
+				text = "[GetNumberAbove_int32( GetDataModelSize(CharacterWindow.GetCourt), '(int32)7' )|=]"
 			}
 			blockoverride "expand_button_inside" {
-				visible = "[GreaterThan_int32( GetDataModelSize(CharacterSelectionList.GetList), '(int32)7' )]"
-				# Refresh list right before expanding (prevents stale portraits)
-				onclick = "
-					CharacterSelectionList.Clear;
-					CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
-					CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
-					CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
-					CharacterSelectionList.Build;
-					CharacterWindow.ToggleExpandedRelation( 'slaves' );
-				"
+				visible = "[GreaterThan_int32( GetDataModelSize(CharacterWindow.GetCourt), '(int32)7' )]"
+				onclick = "[CharacterWindow.ToggleExpandedRelation( 'slaves' )]"
 			}
 		}
 	}
@@ -52,25 +32,13 @@
 		visible = "[CharacterWindow.IsRelationExpanded( 'slaves' )]"
 		size = { 100% 100%
 		}
-		# When the expanded widget is created, rebuild again (extra safety)
-		widget = {
-			name = "slave_list_builder_expanded"
-			datacontext = "[CharacterSelectionList]"
-			on_create = "
-				CharacterSelectionList.Clear;
-				CharacterSelectionList.SetSource( CharacterWindow.GetCourt );
-				CharacterSelectionList.AddScriptedTriggerFilter( 'is_slave_any_tier' );
-				CharacterSelectionList.AddScriptedTriggerFilter( 'is_not_character_window_character' );
-				CharacterSelectionList.Build;
-			"
-		}
 		blockoverride "scrollbox_replace_vbox" {
 			vbox_character_row_item = {
 				name = "slaves"
 				margin_top = 10
 				spacing = 5
 				blockoverride "portrait_datamodel" {
-					datamodel = "[CharacterSelectionList.GetList]"
+					datamodel = "[CharacterWindow.GetCourt]"
 				}
 				blockoverride "header_text" {
 					text = "CV_SLAVES_HEADING"
